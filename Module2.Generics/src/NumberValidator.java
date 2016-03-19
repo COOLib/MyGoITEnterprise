@@ -1,12 +1,12 @@
 
-public class NumberValidator implements Validator<Number> {
+public class NumberValidator implements Validator<Double> {
 
     @Override
-    public boolean isValid(Rectangle result) {
+    public boolean isValid(Double result) {
 
-        result.execute();
 
-        if (!result.getResult().equals(Double.valueOf(0))){
+
+        if (result.doubleValue() > 200) {
             return true;
         }
         return false;

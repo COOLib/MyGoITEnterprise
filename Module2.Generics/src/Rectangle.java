@@ -1,6 +1,4 @@
-/**
- * Created by COOLib on 16.03.2016.
- */
+
 public class Rectangle implements Task<Double> {
 
     private int a;
@@ -27,6 +25,6 @@ public class Rectangle implements Task<Double> {
 
     @Override
     public Double getResult() {
-        return Double.valueOf(res);
+        return res;
     }
 }

@@ -2,13 +2,13 @@ import java.util.List;
 
 public interface Executor<T> {
 
-    void addTask(T task) throws Exception;
+    void addTask(Task<? extends T> task) throws Exception;
 
-    void addTask(Rectangle task, Validator<Number> validator) throws Exception;
+    void addTask(Task<? extends T> task, Validator<? super T> validator) throws Exception;
 
-    void execute() throws Exception;
+    void execute();
 
-    List getValidResults() throws Exception;
+    List<T> getValidResults() throws Exception;
 
-    List getInvalidResults() throws Exception;
+    List<T> getInvalidResults() throws Exception;
 }

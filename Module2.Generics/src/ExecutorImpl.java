@@ -1,34 +1,34 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExecutorImpl implements Executor<Rectangle> {
+public class ExecutorImpl implements Executor<Number> {
 
 
-    private List<Rectangle> validResults = new ArrayList<>();
-    private List<Rectangle> invalidResults = new ArrayList<>();
+    private List<Number> validResults = new ArrayList<>();
+    private List<Number> invalidResults = new ArrayList<>();
 
-    private int number1 = 0;
-    private int number2 = 0;
+    private double number1 = 0;
+    private double number2 = 0;
 
     @Override
-    public void addTask(Rectangle number) throws Exception {
+    public void addTask(Task number) throws Exception {
 
-        Validator<Number> validator = new NumberValidator();
-
-        addTask(number, validator);
+        addTask(number, new NumberValidator());
     }
 
     @Override
-    public void addTask(Rectangle task, Validator<Number> validator) throws Exception {
+    public void addTask(Task task, Validator validator) throws Exception {
 
-        if (number1 != 0 || number2 != 0) {
+        if (number1 != 0) {
             throw new Exception("Executor was called.");
         }
 
-        if (!validator.isValid(task)) {
-            invalidResults.add(task);
+        task.execute();
+
+        if (!validator.isValid(task.getResult())) {
+            invalidResults.add((Double)task.getResult());
         } else {
-            validResults.add(task);
+            validResults.add((Double)task.getResult());
         }
     }
 
@@ -36,15 +36,15 @@ public class ExecutorImpl implements Executor<Rectangle> {
     public void execute() {
 
         for (int i = 0; i < validResults.size(); i++) {
-            validResults.get(i).execute();
+            validResults.get(i);
             System.out.print(validResults.get(i) + " ");
-            number1 += validResults.get(i).getResult();
+            number1 += validResults.get(i).doubleValue();
         }
         System.out.println();
         for (int i = 0; i < invalidResults.size(); i++) {
-            invalidResults.get(i).execute();
+            invalidResults.get(i);
             System.out.print(invalidResults.get(i) + " ");
-            number2 += invalidResults.get(i).getResult();
+            number2 += invalidResults.get(i).doubleValue();
         }
         System.out.println();
     }
@@ -61,7 +61,7 @@ public class ExecutorImpl implements Executor<Rectangle> {
     @Override
     public List getInvalidResults() throws Exception {
 
-        if (number2 != 0) {
+        if (validResults.size() == 0) {
             throw new Exception("An execute method wasn't called to Rectangle " + invalidResults.toString());
         }
         return invalidResults;

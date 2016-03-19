@@ -1,5 +1,5 @@
 
 public interface Validator<T> {
 
-    boolean isValid(Rectangle result);
+    boolean isValid(T result);
 }
