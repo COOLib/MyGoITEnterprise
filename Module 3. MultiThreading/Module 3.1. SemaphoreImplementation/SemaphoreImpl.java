@@ -38,7 +38,7 @@ public class SemaphoreImpl implements Semaphore {
     }
 
     @Override
-    public void release() throws InterruptedException {
+    public void release() {
 
         if (permitCounter == 0) {
             lock.notify();

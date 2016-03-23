@@ -5,7 +5,7 @@ public interface Semaphore {
 
     public void acquire(int permits) throws InterruptedException;
 
-    public void release() throws InterruptedException;
+    public void release();
 
     public void release(int permits);
 
