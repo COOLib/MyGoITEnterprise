@@ -15,52 +15,8 @@ public class MultiThreadAdder implements SquareSum {
         }
         int numberOfThreads = array.length / 10;
 
-        long singleSum = adder.getSum(array,numberOfThreads);
-        System.out.println("Square sum counted by single thread: " + singleSum);
-
-        System.out.println();
         long multiSum = adder.getSquareSum(array, numberOfThreads);
         System.out.println("Square sum counted by " + numberOfThreads + " threads: " + multiSum);
-    }
-
-    public long getSum(int[] values, int numberOfThreads) {
-
-        long square = 0;
-        long[] singleArr = new long[numberOfThreads];
-
-        if (values.length < numberOfThreads) {
-
-            for (int i = 0; i < values.length; i++) {
-                singleArr[i] = values[i] * values[i];
-                square += values[i] * values[i];
-            }
-        } else {
-            for (int k = 0; k < numberOfThreads; k++) {
-
-                int start = (values.length / numberOfThreads) * k;
-                int end = (values.length / numberOfThreads) * (k + 1);
-
-                for (int j = start; j < end; j++) {
-                    square += values[j] * values[j];
-                    singleArr[k] += values[j] * values[j];
-                }
-
-                if ((k == numberOfThreads - 1) && end < values.length) {
-
-                    for (int m = end; m < values.length; m++) {
-                        square += values[m] * values[m];
-                        singleArr[k] += values[m] * values[m];
-                    }
-                }
-            }
-        }
-
-        for (int i = 0; i < singleArr.length; i++) {
-            System.out.print(singleArr[i] + "  ");
-        }
-        System.out.println();
-
-        return square;
     }
 
     public long getSquareSum(int[] values, int numberOfThreads) {
@@ -99,18 +55,12 @@ public class MultiThreadAdder implements SquareSum {
                 phaser.arriveAndAwaitAdvance();
             });
             try {
-                Thread.sleep(10);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
         executor.shutdown();
-
-
-        for (int i = 0; i < multiArr.length; i++) {
-            System.out.print(multiArr[i] + "  ");
-        }
-        System.out.println();
 
         long result = addingForSum(multiArr);
 
