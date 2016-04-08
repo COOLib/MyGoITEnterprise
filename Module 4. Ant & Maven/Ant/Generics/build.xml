@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding = "ISO-8859-1"?>
-<project name="CollectionEfficiencyForAnt" basedir=".">
+<project name="Generics" basedir=".">
 
     <property name="src" location="src"/>
     <property name="build" location="build"/>
@@ -11,36 +11,20 @@
     <target name="init" description="init project structure">
         <mkdir dir="${build}"/>
         <mkdir dir="${dist}"/>
-        <mkdir dir="${junit}"/>
     </target>
-
-    <path id="junit.classpath">
-        <pathelement location="${lib}/junit-4.10.jar"/>
-    </path>
 
     <target name="compile" depends="init">
         <javac srcdir="${src}" destdir="${build}" includeantruntime="false" source="1.8" target="1.8"/>
     </target>
 
     <path id="junit.class.path">
-        <pathelement location="lib/junit-4.10.jar"/>
+        <pathelement location="lib/junit-4.12.jar"/>
+        <pathelement location="lib/hamcrest-core-1.3.jar"/>
         <pathelement location="${build}"/>
     </path>
 
-    <target name="test" depends="compile">
-        <junit printsummary="on" fork="true" haltonfailure="yes">
-            <classpath refid="junit.class.path"/>
-            <formatter type="xml"/>
-            <batchtest todir="${junit}">
-                <fileset dir="${src}">
-                    <include name="**/*Test*.java"/>
-                </fileset>
-            </batchtest>
-        </junit>
-    </target>
-
-    <target name="dist" depends="test">
-        <jar destfile="${dist}/CollectionEfficiency.jar">
+    <target name="dist" depends="compile">
+        <jar destfile="${dist}/Generics.jar">
             <fileset dir="${build}"/>
             <manifest>
                 <attribute name="Main-Class" value="Main"/>
@@ -51,7 +35,6 @@
     <target name="clean">
         <delete dir="${build}"/>
         <delete dir="${dist}"/>
-        <delete dir="${junit}"/>
     </target>
 
 </project>
