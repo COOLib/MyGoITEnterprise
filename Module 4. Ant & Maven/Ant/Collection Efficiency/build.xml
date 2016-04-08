@@ -14,10 +14,6 @@
         <mkdir dir="${junit}"/>
     </target>
 
-    <path id="junit.classpath">
-        <pathelement location="${lib}/junit-4.10.jar"/>
-    </path>
-
     <target name="compile" depends="init">
         <javac srcdir="${src}" destdir="${build}" includeantruntime="false" source="1.8" target="1.8"/>
     </target>
@@ -28,7 +24,7 @@
     </path>
 
     <target name="test" depends="compile">
-        <junit printsummary="on" fork="true" haltonfailure="yes">
+        <junit printsummary="no" fork="true" haltonfailure="yes">
             <classpath refid="junit.class.path"/>
             <formatter type="xml"/>
             <batchtest todir="${junit}">
