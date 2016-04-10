@@ -24,7 +24,7 @@
     </path>
 
     <target name="test" depends="compile">
-        <junit printsummary="no" fork="true" haltonfailure="yes">
+        <junit printsummary="on" fork="true" haltonfailure="yes">
             <classpath refid="junit.class.path"/>
             <formatter type="xml"/>
             <batchtest todir="${junit}">
