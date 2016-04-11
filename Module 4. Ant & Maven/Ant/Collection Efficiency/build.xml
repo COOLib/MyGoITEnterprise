@@ -18,20 +18,19 @@
         <javac srcdir="${src}" destdir="${build}" includeantruntime="false" source="1.8" target="1.8"/>
     </target>
 
-    <path id="junit.class.path">
-        <pathelement location="lib/junit-4.10.jar"/>
-        <pathelement location="${build}"/>
+    <path id="test.classpath">
+        <pathelement location="${build}" />
+        <pathelement location="junit.jar" />
+        <fileset dir="${lib}">
+            <include name="**/*.jar"/>
+        </fileset>
     </path>
 
     <target name="test" depends="compile">
-        <junit printsummary="on" fork="true" haltonfailure="yes">
-            <classpath refid="junit.class.path"/>
-            <formatter type="xml"/>
-            <batchtest todir="${junit}">
-                <fileset dir="${src}">
-                    <include name="**/*Test*.java"/>
-                </fileset>
-            </batchtest>
+        <junit fork="yes" haltonfailure="yes">
+            <test name="${ListComparatorTest}" />
+            <formatter type="plain" usefile="false" />
+            <classpath refid="test.classpath" />
         </junit>
     </target>
 
