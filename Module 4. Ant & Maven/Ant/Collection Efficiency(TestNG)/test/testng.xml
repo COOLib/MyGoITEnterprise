@@ -1,0 +1,8 @@
+<suite name="Suite1">
+    <test name="CollectionEfficiency Test">
+        <classes>
+            <class name="ListComparatorTest"/>
+            <class name="MyWriterTest"/>
+        </classes>
+    </test>
+</suite>
