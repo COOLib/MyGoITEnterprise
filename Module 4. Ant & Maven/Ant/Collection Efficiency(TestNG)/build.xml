@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding = "ISO-8859-1"?>
+<project name="CollectionEfficiencyForAnt" basedir=".">
+
+    <property name="src" location="src"/>
+    <property name="build" location="build"/>
+    <property name="dist" location="dist"/>
+    <property name="test.src" location="test"/>
+    <property name="test.build" location="test.build"/>
+    <property name="lib" location="lib"/>
+    <property name="test.report" location="test-report"/>
+
+    <target name="init" description="init project structure">
+        <mkdir dir="${build}"/>
+        <mkdir dir="${dist}"/>
+        <mkdir dir="${test.build}"/>
+        <mkdir dir="${test.report}"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <javac srcdir="${src}" destdir="${build}" source="1.8" target="1.8"/>
+    </target>
+
+    <path id="test.classpath">
+        <pathelement location="${lib}/testng-6.9.10.jar"/>
+        <pathelement location="${lib}/jcommander-1.48.jar"/>
+        <pathelement location="${lib}/bsh-2.0b4.jar"/>
+    </path>
+
+    <target name="compile.test" depends="compile">
+        <javac srcdir="${test.src}" destdir="${test.build}" source="1.8" target="1.8">
+            <classpath>
+                <pathelement location="${build}"/>
+                <path refid="test.classpath"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <taskdef name="testng" classname="org.testng.TestNGAntTask">
+        <classpath>
+            <path refid="test.classpath"/>
+        </classpath>
+    </taskdef>
+
+    <target name="test" depends="compile.test">
+        <testng outputDir="${test.report}">
+            <classpath>
+                <pathelement location="${test.build}"/>
+                <pathelement location="${build}"/>
+                <path refid="test.classpath"/>
+            </classpath>
+            <xmlfileset dir="${test.src}" includes="testng.xml"/>
+        </testng>
+    </target>
+
+    <target name="dist" depends="test">
+        <jar destfile="${dist}/CollectionEfficiency.jar">
+            <fileset dir="${build}"/>
+            <manifest>
+                <attribute name="Main-Class" value="Main"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="clean">
+        <delete dir="${build}"/>
+        <delete dir="${dist}"/>
+        <delete dir="${test.build}"/>
+        <delete dir="${test.report}"/>
+    </target>
+
+</project>
