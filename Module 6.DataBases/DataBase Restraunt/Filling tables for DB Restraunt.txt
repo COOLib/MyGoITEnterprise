@@ -1,0 +1,149 @@
+insert into ingridient(name) values ('potato'),
+			('cucumber'),
+			('avocado'),
+			('pasta'),
+			('tomato'),
+			('carrot'),
+			('egg'),
+			('pork'),
+			('onion'),
+			('parsley'),
+			('rise'),
+			('pepper'),
+			('aubergine'),
+			('cabbot'),
+			('milk'),
+			('ice-cream'),
+			('sugar'),
+			('flour'),
+			('gelatin'),
+			('mutton');
+
+insert into employee values 	
+			(1, 'Nikolaj', 'Smirnov', '1987-5-15', '755-55-35', 'oficiant', 3000),
+			(2, 'Aleksej', 'Petrov', '1990-8-22', '755-56-48', 'oficiant', 3000),
+			(3, 'Vladimir', 'Danilets', '1984-4-16', '755-89-12', 'cook', 5500),
+			(4, 'George', 'Simon', '1978-12-12', '755-64-32', 'cook', 6000);
+		
+
+insert into employee(name, second_name, birth_date, position, salary) values
+			('Vlad', 'Kovel', '1990-9-26', 'oficiant', 3000);
+
+insert into employee(name, second_name, birth_date, position) values 
+			('Aleksandr', 'Panin', '1985-2-4', 'cook');
+
+insert into employee values (7, 'Jurij', 'Ivanov', '1992-5-17', '755-97-64', 'oficiant', 3000);
+
+insert into storage values 	(1, 40),
+			(2, 70),
+			(3, 42),
+			(4, 78),
+			(5, 16),
+			(6, 83),
+			(7, 49),
+			(8, 56),
+			(9, 73),
+			(10, 26),
+			(11, 39),
+			(12, 41),
+			(13, 86),
+			(14, 28),
+			(15, 58),
+			(16, 95),
+			(17, 34),
+			(18, 67),
+			(19, 54),
+			(20, 32);
+
+insert into dish values 	('soup-creme', 'first dish', 25, 400),
+			('borscht', 'first dish',30 , 350),
+			('bouillon', 'first dish', 35, 400),
+			('steak', 'second dish', 90, 250),
+			('baked fish', 'second dish', 75, 300),
+			('scrambled eggs with bacon', 'second dish', 70, 250),
+			('paella', 'second dish', 95, 400),
+			('ice-cream', 'dessert', 40, 200), 
+			('chease-cake', 'dessert', 35, 250),
+			('pudding', 'dessert', 35, 230),
+			('tiramisu', 'dessert', 40, 200);
+
+insert into ingridient_dish values (1, 'borscht'),
+			(5, 'borscht'),
+			(6, 'borscht'),
+			(9, 'borscht'),
+			(12, 'borscht'),
+			(8, 'steak'),
+			(12, 'steak'),
+			(20, 'bouillon'),
+			(12, 'bouillon'),
+			(7, 'scrambled eggs with bacon'),
+			(8, 'scrambled eggs with bacon'),
+			(16, 'ice-cream'),
+			(17, 'pudding'),
+			(19, 'pudding'),
+			(7, 'tiramisu'),
+			(17, 'tiramisu'),
+			(18, 'tiramisu');
+
+insert into restraunt_menu values('Our exclusive menu', 'soup-creme', 'first dish'),
+			('Our exclusive menu', 'borscht', 'first dish'),
+			('Our exclusive menu', 'bouillon', 'first dish'),
+			('Our exclusive menu', 'steak', 'second dish'),
+			('Our exclusive menu', 'baked fish', 'second dish'),
+			('Our exclusive menu', 'scrambled eggs with bacon', 'second dish'),
+			('Our exclusive menu', 'paella', 'second dish'),
+			('Our exclusive menu', 'ice-cream', 'dessert'),
+			('Our exclusive menu', 'chease-cake', 'dessert'),
+			('Our exclusive menu', 'pudding', 'dessert'),
+			('Our exclusive menu', 'tiramisu', 'dessert');
+
+insert into dish_order(employee, table_number, date) values 	
+			(1, 7, '2016-5-9'),
+			(5, 2, '2016-5-9'),
+			(2, 3, '2016-5-9'),
+			(7, 4, '2016-5-9'),
+			(1, 5, '2016-5-9'),
+			(2, 6, '2016-5-9'),
+			(5, 1, '2016-5-9'),
+			(7, 8, '2016-5-9'),
+			(5, 5, '2016-5-9'),
+			(7, 3, '2016-5-9');
+
+insert into dish_order_dish values (1, 'borscht'),
+			(1, 'soup-creme'),
+			(1, 'paella'),
+			(1, 'tiramisu'),
+			(2, 'ice-cream'),
+			(2, 'soup-creme'),
+			(3, 'baked fish'),
+			(4, 'bouillon'),
+			(4, 'chease-cake'),
+			(5, 'ice-cream'),
+			(5, 'paella'),
+			(6, 'chease-cake'),
+			(6, 'tiramisu'),
+			(7, 'soup-creme'),
+			(8, 'chease-cake'),
+			(9, 'chease-cake'),
+			(10, 'paella'),
+			(10, 'ice-cream');
+
+insert into cooked_dish(dish_name, category, employee_id, order_number, data) values
+			('borscht', 'first dish', 3, 1, '2016-5-9'),
+			('soup-creme', 'first dish', 4, 1, '2016-5-9'),
+			('paella', 'second dish', 6, 1, '2016-5-9'),
+			('tiramisu', 'dessert', 4, 1, '2016-5-9'),
+			('ice-cream', 'dessert', 3, 2, '2016-5-9'),
+			('soup-creme', 'first dish', 6, 2, '2016-5-9'),
+			('baked fish', 'second dish', 6, 3, '2016-5-9'),
+			('bouillon', 'first dish', 3, 4, '2016-5-9'),
+			('chease-cake', 'dessert', 3, 4, '2016-5-9'),
+			('ice-cream', 'dessert', 4, 5, '2016-5-9'),
+			('paella', 'second dish', 4, 5, '2016-5-9'),
+			('chease-cake', 'dessert', 4, 6, '2016-5-9'),
+			('tiramisu', 'dessert', 3, 6, '2016-5-9'),
+			('soup-creme', 'first dish', 3, 7, '2016-5-9'),
+			('chease-cake', 'dessert', 6, 8, '2016-5-9'),
+			('chease-cake', 'dessert', 6, 9, '2016-5-9'),
+			('paella', 'second dish', 4, 10, '2016-5-9'),
+			('ice-cream', 'dessert', 3, 10, '2016-5-9');

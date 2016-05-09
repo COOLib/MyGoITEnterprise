@@ -1,0 +1,70 @@
+create database restraunt;
+
+use restraunt;
+
+create table employee(
+	id int(5) AUTO_INCREMENT, 
+	name varchar(20) NOT NULL, 
+	second_name varchar(20) NOT NULL, 
+	birth_date date NOT NULL, 
+	phone varchar(20), 
+	position varchar(20), 
+	salary int(10), 
+	PRIMARY KEY (id));
+
+create table ingridient(
+	id int(5) AUTO_INCREMENT, 
+	name varchar(25) NOT NULL, 
+	PRIMARY KEY(id));
+
+create table storage(
+	ingridient_id int(5) NOT NULL, 
+	quantity int(5),
+	FOREIGN KEY (ingridient_id) REFERENCES ingridient(id));
+
+create table dish(
+	name varchar(25) NOT NULL, 
+	category varchar(25) NOT NULL, 
+	price int(5), 
+	weight int(5) NOT NULL,
+	PRIMARY KEY (name, category));
+
+create table ingridient_dish(
+	ingridient_id int(5) NOT NULL, 
+	name varchar(25) NOT NULL,
+	FOREIGN KEY (ingridient_id) REFERENCES ingridient(id),
+	FOREIGN KEY (name) REFERENCES dish(name));
+
+create table restraunt_menu(
+	name varchar(25) NOT NULL, 
+	dish_name varchar(25) NOT NULL, 
+	category varchar(25) NOT NULL, 
+	FOREIGN KEY (dish_name,category) REFERENCES dish (name, category));
+
+create table dish_order(
+	order_number int(10) AUTO_INCREMENT,
+	employee int(5) NOT NULL,
+	table_number int(5) NOT NULL,
+	date date,
+	PRIMARY KEY (order_number),
+	FOREIGN KEY (employee) REFERENCES employee (id));
+
+create table dish_order_dish(
+	order_number int(10) NOT NULL,
+	dish_name varchar(25) NOT NULL,
+	FOREIGN KEY (order_number) REFERENCES dish_order(order_number),
+	FOREIGN KEY (dish_name) REFERENCES dish (name));
+
+create table cooked_dish(
+	dish_number int(10) AUTO_INCREMENT, 
+	dish_name varchar(25) NOT NULL, 
+	category varchar(25) NOT NULL,	
+	employee_id int(5) NOT NULL, 
+	order_number int(10), 
+	data date, 
+	PRIMARY KEY (dish_number), 
+	FOREIGN KEY (dish_name, category) REFERENCES dish(name, category), 
+	FOREIGN KEY (employee_id) REFERENCES employee(id), 
+	FOREIGN KEY (order_number) REFERENCES dish_order(order_number));
+
+show tables;
