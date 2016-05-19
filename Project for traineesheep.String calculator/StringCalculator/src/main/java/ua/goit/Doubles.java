@@ -238,7 +238,7 @@ public class Doubles {
                 helpDecimal++;
             } else if (decimal < 0 && helpNumber < 0) {
                 decimal = decimal - i / (1.0 * (Math.pow(10, ++helpDecimal)));
-            } else if (decimal > 0 && helpNumber < 0) {
+            } else if (decimal >= 0 && helpNumber < 0) {
                 decimal = (-1) * (decimal + i / (1.0 * (Math.pow(10, ++helpDecimal))));
             } else {
                 decimal = decimal + i / (1.0 * (Math.pow(10, ++helpDecimal)));
