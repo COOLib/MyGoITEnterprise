@@ -6,8 +6,7 @@ public class Doubles {
 
         StateMachine sm = new StateMachine();
 
-        for (int i = 0; i < s.length(); i++) {
-            char ch = s.charAt(i);
+        for (char ch : s.toCharArray()) {
             sm.next(ch);
         }
 
@@ -80,8 +79,12 @@ public class Doubles {
                 @Override
                 public State next(char c, ParseData data) {
 
-                    if (c - '0' >= 0 && c - '0' <= 9) {
+                    if (c - '0' > 0 && c - '0' <= 9) {
                         data.addDouble(c - '0');
+
+                        return DECIMAL;
+                    } else if ((c - '0') == 0){
+                        data.addDouble(-1);
 
                         return DECIMAL;
                     } else if (c == 'e') {
@@ -222,6 +225,8 @@ public class Doubles {
 
             if (i == 0) {
                 decimal = number;
+            } else if (i == -1) {
+                helpDecimal++;
             } else if (decimal < 0 && helpNumber < 0) {
                 decimal = decimal - i / (1.0 * (Math.pow(10, ++helpDecimal)));
             } else if (decimal > 0 && helpNumber < 0) {
