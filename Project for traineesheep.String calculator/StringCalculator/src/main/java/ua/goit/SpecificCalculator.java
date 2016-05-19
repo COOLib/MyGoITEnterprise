@@ -179,7 +179,7 @@ public class SpecificCalculator implements Calculator {
         String[] totalArr = formula.split(" ");
         String[] arr = new String[totalArr.length];
 
-        Doubles doubles;
+        Doubles doubles = new Doubles();
 
         for (int i = 0; i < arr.length; i++) {
             arr[i] = totalArr[arr.length - 1 - i];
@@ -189,8 +189,6 @@ public class SpecificCalculator implements Calculator {
         int j = 0;
 
         for (String anArr : arr) {
-
-            doubles = new Doubles();
 
             if (actionMap.containsKey(anArr)) {
 

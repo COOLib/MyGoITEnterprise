@@ -83,7 +83,7 @@ public class Doubles {
                         data.addDouble(c - '0');
 
                         return DECIMAL;
-                    } else if ((c - '0') == 0){
+                    } else if ((c - '0') == 0) {
                         data.addDouble(-1);
 
                         return DECIMAL;
@@ -113,8 +113,12 @@ public class Doubles {
                 @Override
                 public State next(char c, ParseData data) {
 
-                    if (c - '0' >= 0 && c - '0' <= 9) {
+                    if (c - '0' > 0 && c - '0' <= 9) {
                         data.addDouble(c - '0');
+
+                        return DECIMAL;
+                    } else if (c - '0' == 0) {
+                        data.addDouble(-1);
 
                         return DECIMAL;
                     }
@@ -124,11 +128,16 @@ public class Doubles {
                 @Override
                 public State next(char c, ParseData data) {
 
-                    if (c - '0' >= 0 && c - '0' <= 9) {
+                    if (c - '0' > 0 && c - '0' <= 9) {
                         data.addDouble(c - '0');
 
                         return DECIMAL;
-                    } else if (c == 'e') {
+                    } else if (c - '0' == 0) {
+                        data.addDouble(-1);
+
+                        return DECIMAL;
+                    }
+                    if (c == 'e') {
 
                         return EXPONENT;
                     }
