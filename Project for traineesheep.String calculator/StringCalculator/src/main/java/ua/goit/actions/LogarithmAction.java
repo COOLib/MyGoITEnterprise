@@ -1,23 +1,25 @@
 package ua.goit.actions;
 
+import java.math.BigDecimal;
+
 public class LogarithmAction implements Action {
 
     private boolean isUnary = true;
 
     @Override
-    public double unaryAction(double v) {
+    public BigDecimal unaryAction(BigDecimal v) {
 
-        if (v < 1) {
+        if (v.doubleValue() < 1) {
 
             throw new ArithmeticException("I don't like this action! Number must be more than 1.");
         } else {
 
-            return Math.log(v);
+            return BigDecimal.valueOf(Math.log(v.doubleValue()));
         }
     }
 
     @Override
-    public double binaryAction(double v, double v1) {
+    public BigDecimal binaryAction(BigDecimal v, BigDecimal v1) {
 
         throw new ArithmeticException("If  the action is division, the second argument have to to be here!");
     }

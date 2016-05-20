@@ -1,23 +1,25 @@
 package ua.goit.actions;
 
+import java.math.BigDecimal;
+
 public class SquareRootAction implements Action {
 
 private boolean isUnary = true;
 
     @Override
-    public double unaryAction(double v) {
+    public BigDecimal unaryAction(BigDecimal v) {
 
-        if (v < 0) {
+        if (v.doubleValue() < 0) {
 
             throw new ArithmeticException("The number must be more than zero!");
         } else {
 
-            return Math.sqrt(v);
+            return BigDecimal.valueOf(Math.sqrt(v.doubleValue()));
         }
     }
 
     @Override
-    public double binaryAction(double v, double v1) {
+    public BigDecimal binaryAction(BigDecimal v, BigDecimal v1) {
 
         throw new ArithmeticException("If  the action is division, the second argument have to to be here!");
     }

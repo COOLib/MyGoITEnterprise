@@ -1,5 +1,7 @@
 package ua.goit.actions;
 
+import java.math.BigDecimal;
+
 /**
  * Created by COOLib on 20.04.2016.
  */
@@ -8,30 +10,30 @@ public class FactorialAction implements Action {
     private boolean isUnary = true;
 
     @Override
-    public double unaryAction(double v) {
+    public BigDecimal unaryAction(BigDecimal v) {
 
-        if (v > 25 || v < -25) {
+        if (v.doubleValue() > 25 || v.doubleValue() < -25) {
 
             throw new ArithmeticException("This number is too big for doing the action of factorial");
         }
 
         double accuracy = 0.0001;
 
-        long number = (long) v;
+        long number = v.longValue();
 
-        if (v - number > accuracy) {
+        if (v.doubleValue() - number > accuracy) {
 
-            double result = Math.exp(Math.log(factorial(number)) + (v - number) * Math.log(number + 1));
+            BigDecimal result = BigDecimal.valueOf(Math.exp(Math.log(factorial(number)) + (v.doubleValue() - number) * Math.log(number + 1)));
 
             return result;
         } else {
 
-            return factorial((int) v);
+            return BigDecimal.valueOf(factorial(v.longValue()));
         }
     }
 
     @Override
-    public double binaryAction(double v, double v1) {
+    public BigDecimal binaryAction(BigDecimal v, BigDecimal v1) {
 
         throw new ArithmeticException("If  the action is factorial, the second argument is not needed here!");
     }
@@ -41,9 +43,9 @@ public class FactorialAction implements Action {
         return isUnary;
     }
 
-    private long factorial(long n) {
+    private double factorial(long n) {
 
-        long res = 1;
+        double res = 1;
         for (int i = 1; i <= n; i++) {
             res *= i;
         }

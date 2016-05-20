@@ -2,6 +2,7 @@ package ua.goit;
 
 import ua.goit.actions.Action;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 
@@ -28,16 +29,16 @@ public class SpecificCalculator implements Calculator {
         }
 
         String totalFormula = reverseReplace(builder.toString());
-        double result = calculateAnswer(totalFormula);
-        long cutted = (long) result;
+        BigDecimal result = calculateAnswer(totalFormula);
+        long cutted = result.longValue();
         double accuracy = 0.00001;
 
-        if (Math.abs(result) - Math.abs(cutted) > accuracy) {
+        if (Math.abs(result.doubleValue()) - Math.abs(cutted) > accuracy) {
             return String.valueOf(result);
         } else if (cutted <= Integer.MAX_VALUE && cutted >= Integer.MIN_VALUE) {
-            return String.valueOf((int) result);
+            return String.valueOf(result.intValue());
         } else {
-            return String.valueOf((long) result);
+            return String.valueOf(result.longValue());
         }
     }
 
@@ -170,7 +171,7 @@ public class SpecificCalculator implements Calculator {
         return 0;
     }
 
-    public double calculateAnswer(String formula) throws Exception {
+    public BigDecimal calculateAnswer(String formula) throws Exception {
 
         if (!isRight(formula)) {
             throw new Exception("Entered formula is not correct. Please, check quantity of opening and closing brackets!!");
@@ -192,23 +193,23 @@ public class SpecificCalculator implements Calculator {
 
                 if (!actionMap.get(anArr).isUnary()) {
 
-                    double first = Double.parseDouble(myStrings.get(j - 2));
+                    BigDecimal first = BigDecimal.valueOf(Double.parseDouble(myStrings.get(j - 2)));
 
-                    double second = Double.parseDouble(myStrings.get(j - 1));
+                    BigDecimal second = BigDecimal.valueOf(Double.parseDouble(myStrings.get(j - 1)));
 
                     myStrings.remove(j - 1);
                     j--;
                     myStrings.remove(j - 1);
                     j--;
 
-                    double result = actionMap.get(anArr).binaryAction(first, second);
+                    BigDecimal result = actionMap.get(anArr).binaryAction(first, second);
 
                     myStrings.add(String.valueOf(result));
                     j++;
                 } else {
 
-                    double alone = Double.parseDouble(myStrings.get(j - 1));
-                    double result = actionMap.get(anArr).unaryAction(alone);
+                    BigDecimal alone = BigDecimal.valueOf(Double.parseDouble(myStrings.get(j - 1)));
+                    BigDecimal result = actionMap.get(anArr).unaryAction(alone);
 
                     myStrings.remove(j - 1);
                     myStrings.add(String.valueOf(result));
@@ -220,7 +221,7 @@ public class SpecificCalculator implements Calculator {
             }
         }
 
-        return Double.parseDouble(myStrings.get(0));
+        return BigDecimal.valueOf(Double.parseDouble(myStrings.get(0)));
     }
 
     private boolean isRight(String formula) {

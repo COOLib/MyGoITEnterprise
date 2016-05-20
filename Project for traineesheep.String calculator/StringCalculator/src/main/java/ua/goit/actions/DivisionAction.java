@@ -1,24 +1,26 @@
 package ua.goit.actions;
 
+import java.math.BigDecimal;
+
 public class DivisionAction implements Action {
 
     private boolean isUnary = false;
 
     @Override
-    public double unaryAction(double v) {
+    public BigDecimal unaryAction(BigDecimal v) {
 
         throw new ArithmeticException("If  the action is division, the second argument have to to be here!");
     }
 
     @Override
-    public double binaryAction(double v, double v1) {
+    public BigDecimal binaryAction(BigDecimal v, BigDecimal v1) {
 
-        if (v1 == 0) {
+        if (v1.doubleValue() == 0) {
 
             throw new ArithmeticException("The divider must not to be equals zero!!");
         } else {
 
-            return v / v1;
+            return v.divide(v1);
         }
     }
 
