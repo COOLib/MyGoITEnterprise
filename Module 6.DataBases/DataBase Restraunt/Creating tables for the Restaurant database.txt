@@ -1,6 +1,6 @@
-create database restraunt;
+create database restaurant;
 
-use restraunt;
+use restaurant;
 
 create table employee(
 	id int(5) AUTO_INCREMENT, 
@@ -66,5 +66,7 @@ create table cooked_dish(
 	FOREIGN KEY (dish_name, category) REFERENCES dish(name, category), 
 	FOREIGN KEY (employee_id) REFERENCES employee(id), 
 	FOREIGN KEY (order_number) REFERENCES dish_order(order_number));
+
+ALTER TABLE ingridient ADD UNIQUE (name);
 
 show tables;
