@@ -7,9 +7,47 @@
 
     <tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
 
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driver.class}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.user}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="minPoolSize" value="${jdbc.min.connections}"/>
+        <property name="maxPoolSize" value="${jdbc.max.connections}"/>
+        <property name="acquireIncrement" value="${jdbc.acquire.increment}"/>
+    </bean>
+
     <bean id="employeeController" class="ua.goit.controllers.EmployeeController">
         <property name="txManager" ref="txManager"/>
         <property name="employeeDao" ref="employeeDao"/>
+    </bean>
+
+    <bean id="employeeDao" class="ua.goit.jdbc.JdbcEmployeeDao">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean class="ua.goit.jdbc.JdbcOrderDao" id="orderDao">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean class="ua.goit.jdbc.JdbcCookedDishDao" id="cookedDishDao">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean class="ua.goit.jdbc.JdbcDishDao" id="dishDao">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean class="ua.goit.jdbc.JdbcIngredientDao" id="ingredientDao">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean class="ua.goit.jdbc.JdbcMenuDao" id="menuDao">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean class="ua.goit.jdbc.JdbcStorageDao" id="storageDao">
+        <property name="dataSource" ref="dataSource"/>
     </bean>
 
     <bean id="dishController" class="ua.goit.controllers.DishController">
@@ -19,7 +57,7 @@
 
     <bean id="ingredientController" class="ua.goit.controllers.IngredientController">
         <property name="txManager" ref="txManager"/>
-        <property name="ingredientController" ref="ingredientController"/>
+        <property name="ingredientDao" ref="ingredientDao"/>
     </bean>
 
     <bean id="storageController" class="ua.goit.controllers.StorageController">
@@ -40,50 +78,6 @@
     <bean id="orderController" class="ua.goit.controllers.OrderController">
         <property name="txManager" ref="txManager"/>
         <property name="orderDao" ref="orderDao"/>
-    </bean>
-
-    <bean id="employeeDao" class="ua.goit.jdbc.JdbcEmployeeDao">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
-
-    <bean class="ua.goit.jdbc.JdbcOrderDao" id="orderDao">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="employeeDao" ref="employeeDao"/>
-    </bean>
-
-    <bean class="ua.goit.jdbc.JdbcCookedDishDao" id="cookedDishDao">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="employeeDao" ref="employeeDao"/>
-        <property name="dishDao" ref="dishDao"/>
-        <property name="orderDao" ref="orderDao"/>
-    </bean>
-
-    <bean class="ua.goit.jdbc.JdbcDishDao" id="dishDao">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
-
-    <bean class="ua.goit.jdbc.JdbcIngredientDao" id="ingredientDao">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
-
-    <bean class="ua.goit.jdbc.JdbcMenuDao" id="menuDao">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="dishDao" ref="dishDao"/>
-    </bean>
-
-    <bean class="ua.goit.jdbc.JdbcStorageDao" id="storageDao">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="ingredientDao" ref="ingredientDao"/>
-    </bean>
-
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <property name="driverClass" value="${jdbc.driver.class}"/>
-        <property name="jdbcUrl" value="${jdbc.url}"/>
-        <property name="user" value="${jdbc.user}"/>
-        <property name="password" value="${jdbc.password}"/>
-        <property name="minPoolSize" value="${jdbc.min.connections}"/>
-        <property name="maxPoolSize" value="${jdbc.max.connections}"/>
-        <property name="acquireIncrement" value="${jdbc.acquire.increment}"/>
     </bean>
 
     <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
