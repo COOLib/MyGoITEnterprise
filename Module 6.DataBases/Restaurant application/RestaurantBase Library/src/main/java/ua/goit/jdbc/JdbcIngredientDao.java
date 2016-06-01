@@ -22,7 +22,7 @@ public class JdbcIngredientDao implements ua.goit.interfaces.IngredientDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(JdbcEmployeeDao.class);
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.MANDATORY)
     public Ingredient findIngredientByName(String name) {
 
         Ingredient ingredient;
@@ -53,7 +53,7 @@ public class JdbcIngredientDao implements ua.goit.interfaces.IngredientDao {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.MANDATORY)
     public void addIngredient(Ingredient ingredient) {
 
         boolean exist = false;

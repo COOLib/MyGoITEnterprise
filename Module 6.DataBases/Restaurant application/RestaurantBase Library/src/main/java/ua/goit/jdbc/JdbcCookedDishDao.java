@@ -18,7 +18,7 @@ public class JdbcCookedDishDao implements ua.goit.interfaces.CookedDishDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(JdbcEmployeeDao.class);
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.MANDATORY)
     public void addCookedDish(CookedDish dish) {
 
         LOGGER.info("Connecting to database. Running method is addDish");
@@ -44,7 +44,7 @@ public class JdbcCookedDishDao implements ua.goit.interfaces.CookedDishDao {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.MANDATORY)
     public List<CookedDish> getAllCookedDishes() {
 
         LOGGER.info("Connecting to database.Running method is getAllCookedDishes");

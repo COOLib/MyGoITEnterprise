@@ -18,7 +18,7 @@ public class JdbcDishDao implements ua.goit.interfaces.DishDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(JdbcEmployeeDao.class);
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.MANDATORY)
     public void addDish(Dish dish) {
 
         LOGGER.info("Connecting to database. Running method is addDish");
@@ -42,7 +42,7 @@ public class JdbcDishDao implements ua.goit.interfaces.DishDao {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.MANDATORY)
     public void removeDish(String name) {
 
         LOGGER.info("Connecting to database.Running method is removeDish");
@@ -63,7 +63,7 @@ public class JdbcDishDao implements ua.goit.interfaces.DishDao {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.MANDATORY)
     public Dish findDishByName(String name) {
 
         LOGGER.info("Connecting to database.Running method is findDishByName");
@@ -91,7 +91,7 @@ public class JdbcDishDao implements ua.goit.interfaces.DishDao {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.MANDATORY)
     public List<Dish> getAllDishes() {
 
         LOGGER.info("Connecting to database.Running method is getAllDishes");

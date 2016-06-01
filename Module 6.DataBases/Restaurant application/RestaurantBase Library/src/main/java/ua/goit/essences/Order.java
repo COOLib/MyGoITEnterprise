@@ -11,14 +11,16 @@ public class Order {
     private int employee;
     private int tableNumber;
     private Date date;
+    private String isClosed;
 
     public Order() {}
 
-    public Order(int number, int employee, int tableNumber, Date date) {
+    public Order(int number, int employee, int tableNumber, Date date, String isClosed) {
         this.number = number;
         this.employee = employee;
         this.tableNumber = tableNumber;
         this.date = date;
+        this.isClosed = isClosed;
     }
 
     public int getNumber() {
@@ -53,6 +55,14 @@ public class Order {
         this.date = date;
     }
 
+    public String isClosed() {
+        return isClosed;
+    }
+
+    public void setClosed(String closed) {
+        isClosed = closed;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -60,6 +70,7 @@ public class Order {
                 ", employee=" + employee +
                 ", tableNumber=" + tableNumber +
                 ", date=" + date +
+                ", isClosed=" + isClosed +
                 '}';
     }
 }

@@ -20,7 +20,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
 
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.MANDATORY)
     public void addEmployee(Employee employee) {
 
         LOGGER.info("Connecting to database. Running method is addEmployee");
@@ -46,13 +46,13 @@ public class JdbcEmployeeDao implements EmployeeDao {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.MANDATORY)
     public void removeEmployee(String name) {
 
         LOGGER.info("Connecting to database.Running method is removeEmployee");
 
         try(Connection connection = dataSource.getConnection();
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM EMPLOYEE WHERE name = ?")) {
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM employee WHERE name = ?")) {
 
             LOGGER.info("Successfully connected to DB");
 
@@ -67,7 +67,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.MANDATORY)
     public Employee findEmployeeByName(String name) {
 
         LOGGER.info("Connecting to database.Running method is findByName");
@@ -95,7 +95,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
 
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.MANDATORY)
     public List<Employee> getAllEmployees() {
 
         LOGGER.info("Connecting to database.Running method is getAllEmployees");

@@ -20,7 +20,7 @@ public class JdbcStorageDao implements ua.goit.interfaces.StorageDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(JdbcEmployeeDao.class);
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.MANDATORY)
     public void addIngredientToStorage(Ingredient ingredient, Storage storage) {
 
         LOGGER.info("Connecting to database. Running method is addIngredientToStorage");
@@ -53,7 +53,7 @@ public class JdbcStorageDao implements ua.goit.interfaces.StorageDao {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.MANDATORY)
     public void removeIngredientFromStorage(String name) {
 
         LOGGER.info("Connecting to database.Running method is removeIngredient");
@@ -73,7 +73,7 @@ public class JdbcStorageDao implements ua.goit.interfaces.StorageDao {
         }
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.MANDATORY)
     public List<Storage> getAllIngredients() {
 
         String sql = "SELECT storage.ingridient_id, storage.quantity, ingridient.name FROM storage, ingridient WHERE storage.ingridient_id = ingridient.id";
@@ -83,7 +83,7 @@ public class JdbcStorageDao implements ua.goit.interfaces.StorageDao {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.REQUIRED)
     public List<Storage> getAllEndingIngredients() {
 
         String sql = "SELECT storage.ingridient_id, storage.quantity, ingridient.name FROM storage, ingridient WHERE storage.ingridient_id = ingridient.id and quantity < 10";
@@ -92,7 +92,7 @@ public class JdbcStorageDao implements ua.goit.interfaces.StorageDao {
         return getIngredients(sql);
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.MANDATORY)
     private List<Storage> getIngredients(String query) {
 
         List<Storage> storageList = new ArrayList<>();
@@ -117,7 +117,7 @@ public class JdbcStorageDao implements ua.goit.interfaces.StorageDao {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.MANDATORY)
     public Storage findIngredientByName(String name) {
 
         LOGGER.info("Connecting to database.Running method is findIngredientByName");
@@ -145,7 +145,7 @@ public class JdbcStorageDao implements ua.goit.interfaces.StorageDao {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.MANDATORY)
     public void updateQuantity(Ingredient ingredient, int quantity) {
 
         LOGGER.info("Connecting to database.Running method is updateQuantity");
