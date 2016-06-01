@@ -3,9 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ua.goit</groupId>
     <artifactId>RestaurantBase</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
     <version>1.0</version>
-    <name>RestaurantBase</name>
+    <name>RestaurantLib</name>
     <url>http://maven.apache.org</url>
 
     <build>
@@ -21,22 +21,7 @@
 
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <MainClass>
-                                ua.goit.Main
-                            </MainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
             </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-            </plugin>
-
         </plugins>
     </build>
     <dependencies>
