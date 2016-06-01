@@ -18,7 +18,7 @@ public class JdbcMenuDao implements ua.goit.interfaces.MenuDao {
 
     private DataSource dataSource;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(JdbcEmployeeDao.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JdbcMenuDao.class);
 
     @Override
     @Transactional(propagation = Propagation.MANDATORY)

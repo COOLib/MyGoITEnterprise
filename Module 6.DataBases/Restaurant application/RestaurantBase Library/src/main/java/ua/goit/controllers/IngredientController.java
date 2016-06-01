@@ -29,4 +29,8 @@ public class IngredientController {
     public void setTxManager(PlatformTransactionManager txManager) {
         this.txManager = txManager;
     }
+
+    public void setIngredientDao(IngredientDao ingredientDao) {
+        this.ingredientDao = ingredientDao;
+    }
 }

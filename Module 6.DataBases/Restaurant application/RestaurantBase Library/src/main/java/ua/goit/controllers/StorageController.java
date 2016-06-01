@@ -56,4 +56,8 @@ public class StorageController {
     public void setTxManager(PlatformTransactionManager txManager) {
         this.txManager = txManager;
     }
+
+    public void setStorageDao(StorageDao storageDao) {
+        this.storageDao = storageDao;
+    }
 }

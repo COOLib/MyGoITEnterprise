@@ -18,7 +18,7 @@ public class JdbcOrderDao implements ua.goit.interfaces.OrderDao {
 
     private DataSource dataSource;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(JdbcEmployeeDao.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JdbcOrderDao.class);
 
 
     @Override

@@ -61,4 +61,8 @@ public class OrderController {
     public void setTxManager(PlatformTransactionManager txManager) {
         this.txManager = txManager;
     }
+
+    public void setOrderDao(OrderDao orderDao) {
+        this.orderDao = orderDao;
+    }
 }

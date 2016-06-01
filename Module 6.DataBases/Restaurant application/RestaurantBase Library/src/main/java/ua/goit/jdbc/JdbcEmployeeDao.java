@@ -67,7 +67,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
     }
 
     @Override
-    @Transactional(propagation = Propagation.MANDATORY)
+    @Transactional(propagation = Propagation.REQUIRED)
     public Employee findEmployeeByName(String name) {
 
         LOGGER.info("Connecting to database.Running method is findByName");

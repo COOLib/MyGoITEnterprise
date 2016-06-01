@@ -19,6 +19,7 @@ public class EmployeeController {
     private PlatformTransactionManager txManager;
     private EmployeeDao employeeDao;
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public List<Employee> getAllEmployees() {
 
         TransactionStatus status = txManager.getTransaction(new DefaultTransactionDefinition(TransactionDefinition.PROPAGATION_REQUIRES_NEW));

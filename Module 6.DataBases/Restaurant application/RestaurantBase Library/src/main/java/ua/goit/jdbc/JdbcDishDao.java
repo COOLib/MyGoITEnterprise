@@ -15,7 +15,7 @@ public class JdbcDishDao implements ua.goit.interfaces.DishDao {
 
     private DataSource dataSource;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(JdbcEmployeeDao.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JdbcDishDao.class);
 
     @Override
     @Transactional(propagation = Propagation.MANDATORY)

@@ -19,7 +19,7 @@ public class JdbcIngredientDao implements ua.goit.interfaces.IngredientDao {
 
     private DataSource dataSource;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(JdbcEmployeeDao.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JdbcIngredientDao.class);
 
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
@@ -92,5 +92,9 @@ public class JdbcIngredientDao implements ua.goit.interfaces.IngredientDao {
         ingredient.setId(set.getInt("id"));
         ingredient.setName(set.getString("name"));
         return ingredient;
+    }
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 }

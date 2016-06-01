@@ -46,6 +46,7 @@ public class Storage {
         return "Storage{" +
                 "id=" + id +
                 ", quantity=" + quantity +
+                ", ingredientName='" + ingredientName + '\'' +
                 '}';
     }
 }

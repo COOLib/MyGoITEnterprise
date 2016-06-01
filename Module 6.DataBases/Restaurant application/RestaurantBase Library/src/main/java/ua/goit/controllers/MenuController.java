@@ -56,4 +56,8 @@ public class MenuController {
     public void setTxManager(PlatformTransactionManager txManager) {
         this.txManager = txManager;
     }
+
+    public void setMenuDao(MenuDao menuDao) {
+        this.menuDao = menuDao;
+    }
 }

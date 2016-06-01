@@ -14,21 +14,25 @@ import java.util.List;
 public class CookedDishController {
 
     private PlatformTransactionManager txManager;
-    private CookedDishDao cookedDish;
+    private CookedDishDao cookedDishDao;
 
     @Transactional(propagation = Propagation.REQUIRED)
     public void addDish(CookedDish dish) {
 
-        cookedDish.addCookedDish(dish);
+        cookedDishDao.addCookedDish(dish);
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
     public List<CookedDish> getAllCookedDishes() {
 
-        return cookedDish.getAllCookedDishes();
+        return cookedDishDao.getAllCookedDishes();
     }
 
     public void setTxManager(PlatformTransactionManager txManager) {
         this.txManager = txManager;
+    }
+
+    public void setCookedDishDao(CookedDishDao cookedDishDao) {
+        this.cookedDishDao = cookedDishDao;
     }
 }

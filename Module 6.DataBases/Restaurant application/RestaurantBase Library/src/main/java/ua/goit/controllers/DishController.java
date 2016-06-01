@@ -37,8 +37,11 @@ public class DishController {
         dishDao.removeDish(name);
     }
 
-
     public void setTxManager(PlatformTransactionManager txManager) {
         this.txManager = txManager;
+    }
+
+    public void setDishDao(DishDao dishDao) {
+        this.dishDao = dishDao;
     }
 }

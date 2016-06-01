@@ -5,17 +5,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ua.goit.essences.CookedDish;
+import ua.goit.interfaces.CookedDishDao;
 
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JdbcCookedDishDao implements ua.goit.interfaces.CookedDishDao {
+public class JdbcCookedDishDao implements CookedDishDao {
 
     private DataSource dataSource;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(JdbcEmployeeDao.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JdbcCookedDishDao.class);
 
     @Override
     @Transactional(propagation = Propagation.MANDATORY)

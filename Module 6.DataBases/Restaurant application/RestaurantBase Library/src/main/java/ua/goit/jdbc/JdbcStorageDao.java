@@ -17,7 +17,7 @@ public class JdbcStorageDao implements ua.goit.interfaces.StorageDao {
 
     private DataSource dataSource;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(JdbcEmployeeDao.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JdbcStorageDao.class);
 
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
