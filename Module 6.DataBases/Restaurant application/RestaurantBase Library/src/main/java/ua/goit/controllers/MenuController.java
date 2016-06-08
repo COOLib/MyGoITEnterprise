@@ -23,7 +23,7 @@ public class MenuController {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public Menu getMenuByName(String name) {
+    public List<Menu> getMenuByName(String name) {
 
         return menuDao.findMenuByName(name);
     }
@@ -47,11 +47,16 @@ public class MenuController {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public void addDishToMenu(Menu menu, String name) {
+    public void addDishToMenu(Menu menu, String name, String category) {
 
-        menuDao.addDishToMenu(menu, name);
+        menuDao.addDishToMenu(menu, name, category);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
+    public Menu getMenuForAddingDish(String name) {
+
+        return menuDao.getMenuForAddingDish(name);
+    }
 
     public void setTxManager(PlatformTransactionManager txManager) {
         this.txManager = txManager;

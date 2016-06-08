@@ -17,45 +17,51 @@ public class OrderController {
     private OrderDao orderDao;
 
     @Transactional(propagation = Propagation.REQUIRED)
-    void createNewOrder(Order order) {
+    public void createNewOrder(Order order) {
 
         orderDao.createNewOrder(order);
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    void removeOrder(int id) {
+    public void removeOrder(int id) {
 
         orderDao.removeOrder(id);
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    void deleteDishFromOrder(String name, int orderNumber) {
+    public void deleteDishFromOrder(String name, int orderNumber) {
 
         orderDao.deleteDishFromOrder(name, orderNumber);
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    void addDishToOrder(String name, int orderNumber) {
+    public void addDishToOrder(String name, int orderNumber) {
 
-        orderDao.addDishToOrder(name, orderNumber);
+        orderDao.addDishToOrder(orderNumber, name);
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    void turnToClosed(int id) {
+    public void turnToClosed(int id) {
 
         orderDao.turnToClosed(id);
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    List<Order> getAllOpefedOrders() {
+    public List<Order> getAllOpenedOrders() {
 
-        return orderDao.getAllOpefedOrders();
+        return orderDao.getAllOpenedOrders();
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    List<Order> getAllClosedOrders() {
+    public List<Order> getAllClosedOrders() {
 
         return orderDao.getAllClosedOrders();
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public Order getOrderById(int id) {
+
+        return orderDao.findOrderById(id);
     }
 
     public void setTxManager(PlatformTransactionManager txManager) {

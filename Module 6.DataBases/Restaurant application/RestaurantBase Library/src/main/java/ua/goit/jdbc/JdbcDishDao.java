@@ -63,7 +63,7 @@ public class JdbcDishDao implements ua.goit.interfaces.DishDao {
     }
 
     @Override
-    @Transactional(propagation = Propagation.MANDATORY)
+    @Transactional(propagation = Propagation.REQUIRED)
     public Dish findDishByName(String name) {
 
         LOGGER.info("Connecting to database.Running method is findDishByName");
@@ -82,7 +82,7 @@ public class JdbcDishDao implements ua.goit.interfaces.DishDao {
             } else {
 
                 LOGGER.error("Cannot find dish with name " + name);
-                throw new RuntimeException("Cannot find dish with name " + name);
+                return  null;
             }
         } catch (SQLException e) {
             LOGGER.error("Exception occurred while connecting to DB", e);
@@ -104,7 +104,7 @@ public class JdbcDishDao implements ua.goit.interfaces.DishDao {
 
             LOGGER.info("Successfully connected to DB.");
 
-            String sql = "select * from employee";
+            String sql = "select * from dish";
             ResultSet set = statement.executeQuery(sql);
 
             while (set.next()) {

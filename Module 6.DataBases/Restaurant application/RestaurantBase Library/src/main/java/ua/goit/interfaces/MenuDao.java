@@ -17,14 +17,17 @@ public interface MenuDao {
     void removeMenu(String name);
 
     @Transactional(propagation = Propagation.REQUIRED)
-    Menu findMenuByName(String name);
+    List<Menu> findMenuByName(String name);
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     List<Menu> getAllMenus();
 
     @Transactional(propagation = Propagation.REQUIRED)
-    void addDishToMenu(Menu menu, String dishName);
+    void addDishToMenu(Menu menu, String dishName, String category);
 
     @Transactional(propagation = Propagation.REQUIRED)
     void removeDishFromMenu(Menu menu, String dishName);
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    Menu getMenuForAddingDish(String name);
 }

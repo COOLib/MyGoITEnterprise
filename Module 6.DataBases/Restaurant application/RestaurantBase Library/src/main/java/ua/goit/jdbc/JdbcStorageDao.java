@@ -151,7 +151,7 @@ public class JdbcStorageDao implements ua.goit.interfaces.StorageDao {
         LOGGER.info("Connecting to database.Running method is updateQuantity");
 
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("UPDATE storage SET quantity = quantity + ? where ingridient_id = (select id from ingridient where name = ?)")) {
+             PreparedStatement statement = connection.prepareStatement("UPDATE storage SET storage.quantity = storage.quantity + ? where storage.ingridient_id = (select ingridient.id from ingridient where ingridient.name = ?)")) {
 
             LOGGER.info("Successfully connected to DB");
 

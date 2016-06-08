@@ -22,7 +22,7 @@ public class JdbcOrderDao implements ua.goit.interfaces.OrderDao {
 
 
     @Override
-    @Transactional(propagation = Propagation.MANDATORY)
+    @Transactional(propagation = Propagation.REQUIRED)
     public void createNewOrder(Order order) {
 
         LOGGER.info("Connecting to database. Running method is addOrder");
@@ -45,7 +45,7 @@ public class JdbcOrderDao implements ua.goit.interfaces.OrderDao {
     }
 
     @Override
-    @Transactional(propagation = Propagation.MANDATORY)
+    @Transactional(propagation = Propagation.REQUIRED)
     public void removeOrder(int id) {
 
         LOGGER.info("Connecting to database.Running method is removeOrder");
@@ -75,7 +75,7 @@ public class JdbcOrderDao implements ua.goit.interfaces.OrderDao {
     }
 
     @Override
-    @Transactional(propagation = Propagation.MANDATORY)
+    @Transactional(propagation = Propagation.REQUIRED)
     public void deleteDishFromOrder(String name, int orderNumber) {
 
         Order order = findOrderById(orderNumber);
@@ -105,8 +105,8 @@ public class JdbcOrderDao implements ua.goit.interfaces.OrderDao {
     }
 
     @Override
-    @Transactional(propagation = Propagation.MANDATORY)
-    public void addDishToOrder(String name, int orderNumber) {
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void addDishToOrder(int orderNumber, String name) {
 
         Order order = findOrderById(orderNumber);
 
@@ -135,7 +135,7 @@ public class JdbcOrderDao implements ua.goit.interfaces.OrderDao {
     }
 
     @Override
-    @Transactional(propagation = Propagation.MANDATORY)
+    @Transactional(propagation = Propagation.REQUIRED)
     public void turnToClosed(int id) {
 
         Order order = findOrderById(id);
@@ -159,8 +159,8 @@ public class JdbcOrderDao implements ua.goit.interfaces.OrderDao {
     }
 
     @Override
-    @Transactional(propagation = Propagation.MANDATORY)
-    public List<Order> getAllOpefedOrders() {
+    @Transactional(propagation = Propagation.REQUIRED)
+    public List<Order> getAllOpenedOrders() {
 
         String sql = "SELECT * FROM dish_order where is_closed = 'opened'";
 
@@ -176,8 +176,9 @@ public class JdbcOrderDao implements ua.goit.interfaces.OrderDao {
         return getOrders(sql);
     }
 
-    @Transactional(propagation = Propagation.MANDATORY)
-    private Order findOrderById(int id) {
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public Order findOrderById(int id) {
 
         LOGGER.info("Connecting to database. Running method is findOrderById");
 
@@ -202,7 +203,7 @@ public class JdbcOrderDao implements ua.goit.interfaces.OrderDao {
         }
     }
 
-    @Transactional(propagation = Propagation.MANDATORY)
+    @Transactional(propagation = Propagation.REQUIRED)
     private List<Order> getOrders(String sql) {
 
         LOGGER.info("Connecting to database.Running method is getAllOpenedOrders");
@@ -228,7 +229,7 @@ public class JdbcOrderDao implements ua.goit.interfaces.OrderDao {
         return orderList;
     }
 
-    @Transactional(propagation = Propagation.MANDATORY)
+    @Transactional(propagation = Propagation.REQUIRED)
     private void deleteAllDishesFromOrder(Order order, int orderId) {
 
         LOGGER.info("Connecting to database.Running method is deleteDishesFromOrder");

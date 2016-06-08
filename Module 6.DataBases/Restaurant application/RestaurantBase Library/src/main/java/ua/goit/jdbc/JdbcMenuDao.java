@@ -66,21 +66,27 @@ public class JdbcMenuDao implements ua.goit.interfaces.MenuDao {
 
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
-    public Menu findMenuByName(String name) {
+    public List<Menu> findMenuByName(String name) {
 
         LOGGER.info("Connecting to database.Running method is findMenuByName");
+
+        List<Menu> menuList = new ArrayList<>();
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("SELECT * FROM restraunt_menu WHERE name = ?")) {
 
             statement.setString(1, name);
-            ResultSet resultSet = statement.executeQuery();
+            ResultSet set = statement.executeQuery();
 
-            if (resultSet.next()) {
+            if (set.next()) {
 
-                Menu menu = createMenu(resultSet);
+                while (set.next()) {
+                    Menu menu = createMenu(set);
+                    menuList.add(menu);
+                }
+
                 LOGGER.info("Menu has been found by name" + name);
-                return menu;
+                return menuList;
             } else {
 
                 LOGGER.error("Cannot find menu with name " + name);
@@ -93,7 +99,7 @@ public class JdbcMenuDao implements ua.goit.interfaces.MenuDao {
     }
 
     @Override
-    @Transactional(propagation = Propagation.MANDATORY)
+    @Transactional(propagation = Propagation.REQUIRED)
     public List<Menu> getAllMenus() {
 
         LOGGER.info("Connecting to database.Running method is getAllMenus");
@@ -106,7 +112,7 @@ public class JdbcMenuDao implements ua.goit.interfaces.MenuDao {
 
             LOGGER.info("Successfully connected to DB.");
 
-            String sql = "SELECT DISTINCT name FROM restraunt_menu";
+            String sql = "SELECT * FROM restraunt_menu";
             ResultSet set = statement.executeQuery(sql);
 
             while (set.next()) {
@@ -123,10 +129,12 @@ public class JdbcMenuDao implements ua.goit.interfaces.MenuDao {
     }
 
     @Override
-    @Transactional(propagation = Propagation.MANDATORY)
-    public void addDishToMenu(Menu menu, String dishName) {
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void addDishToMenu(Menu menu, String dishName, String category) {
 
         LOGGER.info("Connecting to database. Running method is addDishToMenu");
+
+
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("INSERT INTO restraunt_menu (name, dish_name, category) VALUES (?, ?, ?)") ) {
@@ -135,7 +143,7 @@ public class JdbcMenuDao implements ua.goit.interfaces.MenuDao {
 
             statement.setString(1, menu.getName());
             statement.setString(2, dishName);
-            statement.setString(3, menu.getCategory());
+            statement.setString(3, category);
             statement.executeUpdate();
 
             LOGGER.info("New dish has been added to menu" + menu.getName());
@@ -176,6 +184,38 @@ public class JdbcMenuDao implements ua.goit.interfaces.MenuDao {
         menu.setCategory(set.getString("category"));
 
         return menu;
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.MANDATORY)
+    public Menu getMenuForAddingDish(String name) {
+
+        LOGGER.info("Connecting to database.Running method is getMenuForAddingDish");
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM restraunt_menu WHERE name = ?")) {
+
+            LOGGER.info("Successfully connected to DB");
+
+            statement.setString(1, name);
+            ResultSet set = statement.executeQuery();
+
+
+            if (set.next()) {
+
+                Menu menu = createMenu(set);
+                LOGGER.info("Menu has been found by name" + name);
+                return menu;
+            } else {
+
+                LOGGER.error("Cannot find menu with name " + name);
+                throw new RuntimeException("Cannot find dish with name " + name);
+            }
+
+        } catch (Exception e) {
+            LOGGER.error("Exception occurred while connecting to DB ", e);
+            throw new RuntimeException(e);
+        }
     }
 
     public void setDataSource(DataSource dataSource) {

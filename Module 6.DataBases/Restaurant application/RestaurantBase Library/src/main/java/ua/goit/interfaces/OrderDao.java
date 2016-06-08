@@ -20,14 +20,17 @@ public interface OrderDao {
     void deleteDishFromOrder(String name, int orderNumber);
 
     @Transactional(propagation = Propagation.REQUIRED)
-    void addDishToOrder(String name, int orderNumber);
+    void addDishToOrder(int orderNumber, String name);
 
     @Transactional(propagation = Propagation.REQUIRED)
     void turnToClosed(int id);
 
     @Transactional(propagation = Propagation.REQUIRED)
-    List<Order> getAllOpefedOrders();
+    List<Order> getAllOpenedOrders();
 
     @Transactional(propagation = Propagation.REQUIRED)
     List<Order> getAllClosedOrders();
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    Order findOrderById(int id);
 }
