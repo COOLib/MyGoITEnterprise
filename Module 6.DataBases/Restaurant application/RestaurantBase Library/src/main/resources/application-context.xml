@@ -80,6 +80,20 @@
         <property name="orderDao" ref="orderDao"/>
     </bean>
 
+    <bean id="imagine" class="ua.goit.Imagine">
+        <property name="employeeController" ref="employeeController"/>
+        <property name="dishController" ref="dishController"/>
+        <property name="menuController" ref="menuController"/>
+        <property name="storageController" ref="storageController"/>
+        <property name="ingredientController" ref="ingredientController"/>
+        <property name="cookedDishController" ref="cookedDishController"/>
+        <property name="orderController" ref="orderController"/>
+    </bean>
+
+    <bean id="main" class="ua.goit.Main">
+        <property name="imagine" ref="imagine"/>
+    </bean>
+
     <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
