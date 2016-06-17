@@ -1,0 +1,28 @@
+select name from employee where salary > 3000;
+
+select price from dish where category like '%first%';
+
+select employee.name, orders.order_number from employee, orders where
+	employee.id = orders.employee order by employee.name;
+
+select employee.name, orders.order_number from employee left outer join orders on
+	employee.id = orders.employee order by employee.name desc;
+
+delimiter //
+
+create procedure add_dish(n char(25), c char(25), p int(5), w int(5))
+	begin
+		insert into dish (name, category, price, weight) value (n,c, p, w);
+	end
+//
+
+call add_dish('ships', 'second dish', 25, 100)//
+
+create procedure add_employee(n char(25), s char(25), d date, p char(20), pp char(20), sa int(10))
+	begin
+		insert into employee (name, second_name, birth_date, phone, position, salary)
+		value(n, s, d, p, pp, sa);
+	end
+//
+
+call add_employee('Igor', 'Drozdov', '1991-3-24', '755-37-19', 'oficiant', 3000)//
