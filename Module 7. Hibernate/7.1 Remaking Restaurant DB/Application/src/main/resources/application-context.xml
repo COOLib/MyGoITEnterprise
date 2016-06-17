@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <bean id="main" class="ua.goit.Main">
+        <property name="imagine" ref="imagine"/>
+    </bean>
+
+    <bean id="imagine" class="ua.goit.Imagine">
+        <property name="employeeController" ref="employeeController"/>
+    </bean>
+
+    <bean id="employeeController" class="ua.goit.controllers.HEmployeeController">
+        <property name="employeeDao" ref="employeeDao"/>
+    </bean>
+
+    <bean id="employeeDao" class="ua.goit.jdbc.HEmployeeDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+</beans>
