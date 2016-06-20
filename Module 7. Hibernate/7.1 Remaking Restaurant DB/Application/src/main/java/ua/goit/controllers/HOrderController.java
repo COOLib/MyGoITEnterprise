@@ -11,9 +11,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by COOLib on 13.06.2016.
- */
 public class HOrderController {
 
     private OrderDao orderDao;
@@ -71,6 +68,16 @@ public class HOrderController {
     }
 
     @Transactional
+    public void addDishToOrder(int orderId, String dishName) {
+
+        orderDao.addDishToOrder(orderId, dishName);
+    }
+
+    @Transactional
+    public void deleteDishFromOrder(int orderId, String dishName) {
+
+        orderDao.deleteDishFromOrder(dishName, orderId);
+    }
 
     public void setOrderDao(OrderDao orderDao) {
         this.orderDao = orderDao;

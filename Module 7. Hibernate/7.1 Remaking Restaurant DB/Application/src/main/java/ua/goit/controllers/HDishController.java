@@ -8,9 +8,6 @@ import ua.goit.interfaces.DishDao;
 
 import java.util.List;
 
-/**
- * Created by COOLib on 13.06.2016.
- */
 public class HDishController {
 
     private DishDao dishDao;

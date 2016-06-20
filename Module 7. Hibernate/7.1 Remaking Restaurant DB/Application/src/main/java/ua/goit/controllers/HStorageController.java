@@ -6,9 +6,6 @@ import ua.goit.interfaces.StorageDao;
 
 import java.util.List;
 
-/**
- * Created by COOLib on 13.06.2016.
- */
 public class HStorageController {
 
     private StorageDao storageDao;
@@ -17,9 +14,7 @@ public class HStorageController {
     public void addIngredientToStorage(String name, int quantity) {
 
         ingredientController.addIngredient(name);
-
         Ingredient ingredient = ingredientController.getByName(name);
-
         storageDao.addIngredientToStorage(ingredient, quantity);
     }
 

@@ -103,12 +103,12 @@ public class CookedDish {
 
     @Override
     public String toString() {
-        return "CookedDish{" +
-                "number=" + number +
-                ", id=" + id +
-                ", employeeId=" + employeeId +
-                ", orderNumber=" + orderNumber +
-                ", date=" + date +
-                '}';
+        return "CookedDish{" + "\n" +
+                "number=" + number + ",\n" +
+                "id=" + id + ",\n" +
+                "employeeId=" + employeeId + ",\n" +
+                "orderNumber=" + orderNumber + ",\n" +
+                "date=" + date +
+                '}' + "\n";
     }
 }

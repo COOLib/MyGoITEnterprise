@@ -8,9 +8,6 @@ import ua.goit.interfaces.EmployeeDao;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by COOLib on 12.06.2016.
- */
 public class HEmployeeController {
 
     private EmployeeDao employeeDao;
@@ -51,6 +48,4 @@ public class HEmployeeController {
     public void setEmployeeDao(EmployeeDao employeeDao) {
         this.employeeDao = employeeDao;
     }
-
-
 }

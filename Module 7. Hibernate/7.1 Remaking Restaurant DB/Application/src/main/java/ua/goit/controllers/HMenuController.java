@@ -46,10 +46,13 @@ public class HMenuController {
     @Transactional
     public void addDishToMenu(String menuName, String dishName) {
 
-        Menu menu = menuDao.findMenuByName(menuName);
-        Dish dish = dishDao.findDishByName(dishName);
+        menuDao.addDishToMenu(menuName, dishName);
+    }
 
-        menu.getDishes().add(dish);
+    @Transactional
+    public void deleteDishFromMenu(String menuName, String dishName) {
+
+        menuDao.removeDishFromMenu(menuName, dishName);
     }
 
     public void setMenuDao(MenuDao menuDao) {

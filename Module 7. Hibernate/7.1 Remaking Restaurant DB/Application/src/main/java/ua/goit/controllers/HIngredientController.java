@@ -4,9 +4,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.goit.domains.Ingredient;
 import ua.goit.interfaces.IngredientDao;
 
-/**
- * Created by COOLib on 13.06.2016.
- */
 public class HIngredientController {
 
     private IngredientDao ingredientDao;

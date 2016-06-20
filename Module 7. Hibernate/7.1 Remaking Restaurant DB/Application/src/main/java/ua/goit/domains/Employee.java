@@ -128,14 +128,14 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", secondName='" + secondName + '\'' +
-                ", birthDate=" + birthDate +
-                ", phone='" + phone + '\'' +
-                ", position='" + position + '\'' +
-                ", salary=" + salary +
-                '}';
+        return "Employee{" + "\n" +
+                "id=" + id + ",\n" +
+                "name='" + name + '\'' + ",\n" +
+                "secondName='" + secondName + "\',\n" +
+                "birthDate=" + birthDate + ",\n" +
+                "phone='" + phone + "\',\n" +
+                "position='" + position + "\',\n" +
+                "salary=" + salary +
+                '}' + "\n";
     }
 }

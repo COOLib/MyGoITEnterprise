@@ -7,9 +7,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.swing.*;
 
-/**
- * Created by COOLib on 02.06.2016.
- */
 public class Main {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
@@ -18,7 +15,6 @@ public class Main {
     public static void main(String[] args) {
 
         ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml", "hibernate-context.xml");
-
         Main main = context.getBean(Main.class);
 
 

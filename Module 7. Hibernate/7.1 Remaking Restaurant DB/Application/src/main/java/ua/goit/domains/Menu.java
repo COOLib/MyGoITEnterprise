@@ -18,7 +18,7 @@ public class Menu {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
             name = "menu_dishes",
             joinColumns = @JoinColumn(name = "menu_id"),
@@ -81,9 +81,9 @@ public class Menu {
     @Override
     public String toString() {
         return "Menu{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", dishes=" + dishes +
+                "id=" + id + ",\n" +
+                "name='" + name + "\',\n" +
+                "dishes=" + dishes +
                 '}';
     }
 }

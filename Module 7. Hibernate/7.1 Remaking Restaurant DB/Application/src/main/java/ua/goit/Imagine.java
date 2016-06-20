@@ -90,7 +90,7 @@ public class Imagine {
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         frame.getContentPane().add(back);
-        frame.setBounds(600, 350, 1100, 300);
+        frame.setBounds(600, 350, 800, 500);
         frame.setVisible(true);
 
         setActionPanel();
@@ -428,13 +428,13 @@ public class Imagine {
             textArea.setText("");
             if (employee.isSelected()) {
 
-                for (ua.goit.domains.Employee employee : employeeController.getAllEmployees()) {
+                for (Employee employee : employeeController.getAllEmployees()) {
                     textArea.append(employee.toString());
                     textArea.append("\n");
                 }
             } else if (dish.isSelected()) {
 
-                for (ua.goit.domains.Dish dish : dishController.getAllDishes()) {
+                for (Dish dish : dishController.getAllDishes()) {
                     textArea.append(dish.toString());
                     textArea.append("\n");
                 }
@@ -446,13 +446,13 @@ public class Imagine {
                 }
             } else if (cookedDish.isSelected()) {
 
-                for (ua.goit.domains.CookedDish cookedDish : cookedDishController.getAllCookedDishes()) {
+                for (CookedDish cookedDish : cookedDishController.getAllCookedDishes()) {
                     textArea.append(cookedDish.toString());
                     textArea.append("\n");
                 }
             } else if (storage.isSelected()) {
 
-                for (ua.goit.domains.Storage storage : storageController.getAllIngredients()) {
+                for (Storage storage : storageController.getAllIngredients()) {
                     textArea.append(storage.toString());
                     textArea.append("\n");
                 }
@@ -516,10 +516,9 @@ public class Imagine {
             if (employee.isSelected()) {
 
                 String name = JOptionPane.showInputDialog("Please, enter name of the employee");
-
                 String secondName = JOptionPane.showInputDialog("Please, enter second name of the employee");
-
                 Date birth;
+                int salary;
 
                 while (true) {
                     String birthday = JOptionPane.showInputDialog(frame, "Please, enter date of birth of the employee");
@@ -530,14 +529,12 @@ public class Imagine {
                         birth = format.parse(birthday);
                         break;
                     } catch (ParseException e1) {
-                        JOptionPane.showMessageDialog(frame, "You entered wrong date format. Please, enter date at format: dd.MM.yyyy");
+                        JOptionPane.showMessageDialog(frame, "You entered wrong date format.\nPlease, enter date at format: dd.MM.yyyy");
                     }
                 }
 
                 String phone = JOptionPane.showInputDialog("Please, enter phone of the employee");
-
                 Object[] o = {"COOK", "WAITER", "MANAGER"};
-
                 Position position;
 
                 label:
@@ -562,12 +559,10 @@ public class Imagine {
                             position = Position.MANAGER;
                             break label;
                         default:
-                            JOptionPane.showMessageDialog(frame, "You have to choose one of presenting positions for new employee");
+                            JOptionPane.showMessageDialog(frame, "You have to choose one of presenting positions\nfor new employee");
                             break;
                     }
                 }
-
-                int salary;
 
                 while (true) {
                     try {
@@ -577,189 +572,144 @@ public class Imagine {
                         JOptionPane.showMessageDialog(frame, "Please, enter a natural number");
                     }
                 }
+
                 employeeController.addEmployee(name, secondName, birth, phone, position, salary);
-
-                Employee newEmployee = new Employee();
-
-                newEmployee.setName(name);
-                newEmployee.setSecondName(secondName);
-                newEmployee.setBirthDate(birth);
-                newEmployee.setPosition(position);
-                newEmployee.setPhone(phone);
-                newEmployee.setSalary(salary);
-
-                textArea.append("New employee has been added");
-                textArea.append("\n");
-                textArea.append(newEmployee.toString());
+                textArea.append("New employee " + name + " " + secondName + " has been added");
 
             } else if (dish.isSelected()) {
 
-                String dishName = JOptionPane.showInputDialog("Please, enter name of the dish");
-                Category category = categoryCreation();
-
-                int price;
-                int weight;
-
-                while (true) {
-                    try {
-                        price = Integer.parseInt(JOptionPane.showInputDialog("Please, enter price of the dish"));
-                        weight = Integer.parseInt(JOptionPane.showInputDialog("Please, enter weight of the dish"));
-                        break;
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(frame, "Please, enter a natural numbers to price and weight fields");
-                    }
-                }
-                List<Ingredient> ingredients = new ArrayList<>();
-
-                while (true) {
-
-                    String ingredientName = JOptionPane.showInputDialog(frame, "Please, enter the name of ingredient for the new dish");
-
-                    if (ingredientName == null) {
-                        break;
-                    }
-                    Ingredient ingredient = ingredientController.getByName(ingredientName);
-                    ingredients.add(ingredient);
-                }
-
-                dishController.addDish(dishName, category, price, weight, ingredients);
-
-                Dish newDish = new Dish();
-
-                newDish.setName(dishName);
-                newDish.setCategory(category);
-                newDish.setPrice(price);
-                newDish.setWeight(weight);
-                newDish.setIngredient(ingredients);
-
-                textArea.append("New dish has been added to the dish list");
-                textArea.append("\n");
-                textArea.append(newDish.toString());
+                createDish();
 
             } else if (menu.isSelected()) {
 
-                Menu newMenu = new Menu();
+                String menuName = JOptionPane.showInputDialog("Please, enter name of the menu");
+                List<Dish> menuList = new ArrayList<>();
 
-                newMenu.setName(JOptionPane.showInputDialog("Please, enter name of the menu"));
+                while (true) {
 
-                /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                newMenu.setDishName(JOptionPane.showInputDialog("Please, enter name of the dish"));
-                newMenu.setCategory(JOptionPane.showInputDialog("Please, enter name of the menu's category"));
-*/
-                menuController.addMenu(newMenu);
+                    String dishName = JOptionPane.showInputDialog(frame, "Please, enter the name of the dish\n " +
+                            "which you will place at the new menu.\n" +
+                            "Or enter \'no\' to close dialog.");
 
-                textArea.append("New menu has been added");
-                textArea.append("\n");
-                textArea.append(newMenu.toString());
+                    if (dishName.equals("no")) {
+                        break;
+                    } else {
+                        Dish newDish = dishController.getByName(dishName);
+                        menuList.add(newDish);
+                    }
+                }
+
+                menuController.addMenu(menuName, menuList);
+                textArea.append("New menu \"" + menuName + "\" has been added");
 
             } else if (storage.isSelected()) {
 
-                ua.goit.domains.Ingredient newIngredient = new ua.goit.domains.Ingredient();
-
                 String name = JOptionPane.showInputDialog("Please, enter name of the ingredient");
-                newIngredient.setName(name);
-
-                ua.goit.domains.Storage newStorage = new ua.goit.domains.Storage();
+                int quantity;
 
                 while (true) {
+
                     try {
-                        int id = Integer.parseInt(JOptionPane.showInputDialog("Please, enter id of the ingredient"));
-                        newStorage.setId(id);
-                        int quantity = Integer.parseInt(JOptionPane.showInputDialog("Please, enter quantity of ingredients"));
-                        newStorage.setQuantity(quantity);
+                        quantity = Integer.parseInt(JOptionPane.showInputDialog("Please, enter quantity of ingredient"));
                         break;
                     } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(frame, "Please, enter a natural numbers to id and quantity fields");
+                        JOptionPane.showMessageDialog(frame, "Please, enter a natural number to quantity field");
                     }
                 }
 
-
-                /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                newStorage.setIngredientName(name);
-
-                storageController.addIngredientToStorage(newIngredient, newStorage);
-*/
-                textArea.append("New ingredient has been added");
-                textArea.append("\n");
-                textArea.append(newIngredient.toString());
+                storageController.addIngredientToStorage(name, quantity);
+                textArea.append("New ingredient \"" + name + "\" has been added");
 
             } else if (cookedDish.isSelected()) {
 
-                ua.goit.domains.CookedDish newCookedDish = new ua.goit.domains.CookedDish();
+                JOptionPane.showMessageDialog(frame, "Here you can add cooked dishes only\n" +
+                        "if they are present at new order");
 
-                newCookedDish.setName(JOptionPane.showInputDialog("Please, enter name of the dish"));
-                newCookedDish.setCategory(JOptionPane.showInputDialog("Please, enter category of the cooked dish"));
+                String employeeName = JOptionPane.showInputDialog("Please, enter the name of the\nemployee which cook this dish");
+                String dishName = JOptionPane.showInputDialog("Please, enter the name of the dish");
+                int orderNum;
 
                 while (true) {
 
                     try {
-                        int id = Integer.parseInt(JOptionPane.showInputDialog("Please, enter id of the employee cooked this dish"));
-                        newCookedDish.setEmployeeId(id);
-                        int orderNum = Integer.parseInt(JOptionPane.showInputDialog("Please, enter number of the order for which this dish was cooked"));
-                        newCookedDish.setOrderNumber(orderNum);
+                        orderNum = Integer.parseInt(JOptionPane.showInputDialog("Please, enter number of the order\nfor which this dish was cooked"));
                         break;
                     } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(frame, "Please, enter a natural numbers to id of the employee and number of the order fields");
+                        JOptionPane.showMessageDialog(frame, "Please, enter a natural number\nto number of the order fields");
                     }
                 }
 
-                String birthday = JOptionPane.showInputDialog("Please, enter date of adding dish to order");
-                SimpleDateFormat format = new SimpleDateFormat();
-                format.applyPattern("dd.MM.yyyy");
-                Date dishToOrder = null;
-
-                try {
-                    dishToOrder = format.parse(birthday);
-                } catch (ParseException e1) {
-                    JOptionPane.showMessageDialog(frame, "You entered wrong date format. Please, enter date at format: dd.MM.yyyy");
-                }
-
-                newCookedDish.setDate(dishToOrder);
-
-                cookedDishController.addDish(newCookedDish);
-
-                textArea.append("New cooked dish has been added");
-                textArea.append("\n");
-                textArea.append(newCookedDish.toString());
+                cookedDishController.addCookedDish(employeeName, dishName, orderNum);
+                textArea.append("New cooked dish \"" + dishName + "\" has been added");
 
             } else if (order.isSelected()) {
 
-                ua.goit.domains.Order newOrder = new ua.goit.domains.Order();
+                String employee = JOptionPane.showInputDialog("Please, enter the name of the employee\nwhich brought this order");
+                List<String> dishList = new ArrayList<>();
+                int table;
 
                 while (true) {
 
                     try {
-                        int employee = Integer.parseInt(JOptionPane.showInputDialog("Please, enter the id of the employee which brought this order"));
-                        newOrder.setEmployee(employee);
-                        int table = Integer.parseInt(JOptionPane.showInputDialog("Please, enter the number of the table"));
-                        newOrder.setTableNumber(table);
+                        table = Integer.parseInt(JOptionPane.showInputDialog("Please, enter the number of the table"));
                         break;
                     } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(frame, "Please, enter a natural numbers id of the employee and number of the table fields");
+                        JOptionPane.showMessageDialog(frame, "Please, enter a natural number\nto the number of the table field");
                     }
                 }
 
-                String orderDate = JOptionPane.showInputDialog("Please, enter date of adding of this order");
-                SimpleDateFormat format = new SimpleDateFormat();
-                format.applyPattern("dd.MM.yyyy");
-                Date dishOrder = null;
+                while (true) {
 
-                try {
-                    dishOrder = format.parse(orderDate);
-                } catch (ParseException e1) {
-                    JOptionPane.showMessageDialog(frame, "You entered wrong date format. Please, enter date at format: dd.MM.yyyy");
+                    String dish = JOptionPane.showInputDialog(frame, "Please, enter the name of the dish \n" +
+                            " you want to include in this order \n" +
+                            "Or enter no to close dialog.");
+
+                    if (dish.equals("no")) {
+                        break;
+                    } else {
+                        dishList.add(dish);
+                    }
                 }
 
-                newOrder.setDate(dishOrder);
-                newOrder.setClosed(JOptionPane.showInputDialog("Please, enter the message \"opened\" to add this order to open orders"));
-
-                orderController.createNewOrder(newOrder);
-
+                orderController.addOrder(employee, dishList, table);
                 textArea.append("New order has been created");
-                textArea.append("\n");
-                textArea.append(newOrder.toString());
             }
         }
+    }
+
+    private void createDish() {
+
+        String dishName = JOptionPane.showInputDialog("Please, enter name of the dish");
+        Category category = categoryCreation();
+        List<Ingredient> ingredients = new ArrayList<>();
+        int price;
+        int weight;
+
+        while (true) {
+            try {
+                price = Integer.parseInt(JOptionPane.showInputDialog("Please, enter price of the dish"));
+                weight = Integer.parseInt(JOptionPane.showInputDialog("Please, enter weight of the dish"));
+                break;
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(frame, "Please, enter a natural numbers\nto price and weight fields");
+            }
+        }
+
+        while (true) {
+
+            String ingredientName = JOptionPane.showInputDialog(frame, "Please, enter the name\nof ingredient for the new dish\n" +
+                    "Or enter \"no\" to close dialog");
+
+            if (ingredientName.equals("no")) {
+                break;
+            } else {
+                Ingredient ingredient = ingredientController.getByName(ingredientName);
+                ingredients.add(ingredient);
+            }
+        }
+
+        dishController.addDish(dishName, category, price, weight, ingredients);
+        textArea.append("New dish \"" + dishName + "\" has been added to the dish list");
     }
 
     private Category categoryCreation() {
@@ -767,8 +717,9 @@ public class Imagine {
         LOGGER.info("New dish category creation");
 
         Object[] o = {"FIRST_DISH", "SECOND_DISH", "SALAD", "DESSERT", "SNACK"};
-        Category category = null;
+        Category category;
 
+        label:
         while (true) {
 
             String s = (String) JOptionPane.showInputDialog(
@@ -779,46 +730,29 @@ public class Imagine {
                     o,
                     "FIRST_DISH");
 
-            if (s.equals("FIRST_DISH")) {
-                category = Category.FIRST_DISH;
-                break;
-            } else if (s.equals("SECOND_DISH")) {
-                category = Category.SECOND_DISH;
-                break;
-            } else if (s.equals("SALAD")) {
-                category = Category.SALAD;
-                break;
-            } else if (s.equals("DESSERT")) {
-                category = Category.DESSERT;
-            } else if (s.equals("SNACK")) {
-                category = Category.SNACK;
-            } else {
-                JOptionPane.showMessageDialog(frame, "You have to choose one of presenting categories for new dish");
+            switch (s) {
+                case "FIRST_DISH":
+                    category = Category.FIRST_DISH;
+                    break label;
+                case "SECOND_DISH":
+                    category = Category.SECOND_DISH;
+                    break label;
+                case "SALAD":
+                    category = Category.SALAD;
+                    break label;
+                case "DESSERT":
+                    category = Category.DESSERT;
+                    break label;
+                case "SNACK":
+                    category = Category.SNACK;
+                    break label;
+                default:
+                    JOptionPane.showMessageDialog(frame, "You have to choose one of presenting categories for new dish");
+                    break;
             }
         }
         return category;
     }
-
-
-
-        while (true) {
-            try {
-                int price = Integer.parseInt(JOptionPane.showInputDialog("Please, enter price of the dish"));
-                newDish.setPrice(price);
-                int weight = Integer.parseInt(JOptionPane.showInputDialog("Please, enter weight of the dish"));
-                newDish.setWeight(weight);
-                break;
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(frame, "Please, enter a natural numbers to price and weight fields");
-            }
-        }
-
-        dishController.addDish(newDish);
-
-        textArea.append("New dish has been added to the dish list");
-        textArea.append("\n");
-        textArea.append(newDish.toString());
-
 
     public class DeleteListener implements ActionListener {
 
@@ -831,23 +765,20 @@ public class Imagine {
 
             if (employee.isSelected()) {
 
-                String name = JOptionPane.showInputDialog("Please, enter the name of the employee you want to remove from the DB");
-                employeeController.removeEmployee(name);
-
+                String name = JOptionPane.showInputDialog("Please, enter the name of the employee\nyou want to remove from the DB");
+                employeeController.deleteEmployee(name);
                 textArea.append("Employee with name " + name + " has been removed from DB");
 
             } else if (menu.isSelected()) {
 
-                String name = JOptionPane.showInputDialog("Please, enter the name of the menu you want to remove from the DB");
-                menuController.removeMenu(name);
-
+                String name = JOptionPane.showInputDialog("Please, enter the name of the menu\nyou want to remove from the DB");
+                menuController.deleteMenu(name);
                 textArea.append("Menu with name " + name + " has been removed from DB");
 
             } else if (dish.isSelected()) {
 
-                String name = JOptionPane.showInputDialog("Please, enter the name of the dish you want to remove from the DB");
-                dishController.removeDish(name);
-
+                String name = JOptionPane.showInputDialog("Please, enter the name of the dish\nyou want to remove from the DB");
+                dishController.deleteDish(name);
                 textArea.append("Dish with name " + name + " has been removed from DB");
 
             } else if (order.isSelected()) {
@@ -855,23 +786,22 @@ public class Imagine {
                 while (true) {
 
                     try {
-                        int number = Integer.parseInt(JOptionPane.showInputDialog("Please, enter the number of the order you want to remove from the DB"));
-                        orderController.removeOrder(number);
-
+                        int number = Integer.parseInt(JOptionPane.showInputDialog("Please, enter the number of the order\n" +
+                                "you want to remove from the DB"));
+                        orderController.deleteOrder(number);
                         textArea.append("Order with number " + number + " has been removed from DB");
                         break;
 
                     } catch (Exception ex) {
-                        JOptionPane.showInputDialog(frame, "Please, enter a natural number number of the order which you want to delete from DB");
+                        JOptionPane.showInputDialog(frame, "Please, enter a natural number number of the order\nyou want to delete from DB");
                     }
                 }
 
             } else if (storage.isSelected()) {
 
-                String name = JOptionPane.showInputDialog("Please, enter the name of the ingredient you want to remove from the DB");
-                menuController.removeMenu(name);
-
-                textArea.append("Menu with name " + name + " has been removed from DB");
+                String name = JOptionPane.showInputDialog("Please, enter the name of the ingredient\nyou want to remove from the DB");
+                storageController.removeIngredientFromStorage(name);
+                textArea.append("Ingredient with name " + name + " has been removed from the storage");
             }
         }
     }
@@ -885,22 +815,11 @@ public class Imagine {
 
             textArea.setText("");
 
-            String menuName = JOptionPane.showInputDialog("Please, enter the name of the menu in which you want to insert a dish");
-            Menu newMenu = menuController.getMenuForAddingDish(menuName);
+            String menuName = JOptionPane.showInputDialog("Please, enter the name of the menu\nin which you want to insert a dish");
+            String dishName = JOptionPane.showInputDialog("Please, enter the name of rhe dish\nwhich you want to insert at the menu " + menuName);
+            Dish dish = dishController.getByName(dishName);
 
-            String dishName = JOptionPane.showInputDialog("Please, enter the name of rhe dish which you want to insert at the menu " + menuName);
-
-            ua.goit.domains.Dish dish = dishController.getDishByName(dishName);
-
-            if (dish != null) {
-
-                menuController.addDishToMenu(newMenu, dishName, dish.getCategory());
-            } else {
-
-                dishCreation();
-                menuController.addDishToMenu(newMenu, dishName, dish.getCategory());
-            }
-
+            menuController.addDishToMenu(menuName, dishName);
             textArea.append("New dish with name " + dishName + " has been added to the menu " + menuName);
         }
     }
@@ -914,12 +833,10 @@ public class Imagine {
 
             textArea.setText("");
 
-            String menuName = JOptionPane.showInputDialog("Please, enter the name of the menu from which you want to delete a dish");
-            Menu newMenu = menuController.getMenuForAddingDish(menuName);
+            String menuName = JOptionPane.showInputDialog("Please, enter the name of the menu\nfrom which you want to delete a dish");
+            String dishName = JOptionPane.showInputDialog("Please, enter the name of the dish\nyou want to remove from the menu " + menuName);
 
-            String dishName = JOptionPane.showInputDialog("Please, enter the name of the dish which you want to remove from the menu " + menuName);
-
-            menuController.removeDishFromMenu(newMenu, dishName);
+            menuController.deleteDishFromMenu(menuName, dishName);
 
             textArea.append("Dish with name " + dishName + " has been removed from menu " + menuName);
         }
@@ -934,15 +851,14 @@ public class Imagine {
 
             textArea.setText("");
 
-            String ingredientName = JOptionPane.showInputDialog("Please, enter the name of the ingredient you want to change quantity");
+            String ingredientName = JOptionPane.showInputDialog("Please, enter the name of the ingredient\nyou want to change quantity");
+            Storage newStorage = storageController.getByIngredientName(ingredientName);
             int quantity;
-
-            ua.goit.domains.Ingredient newIngredient = ingredientController.getInredientByName(ingredientName);
-            ua.goit.domains.Storage newStorage = storageController.getIngredientByName(ingredientName);
 
             while (true) {
                 try {
-                    quantity = Integer.parseInt(JOptionPane.showInputDialog("Please, enter the number which you want to add or subtract from the amount the ingredient " + ingredientName));
+                    quantity = Integer.parseInt(JOptionPane.showInputDialog("Please, enter the number you want\n" +
+                            "to add or subtract from the amount\nof the ingredient " + ingredientName));
 
                     if (newStorage.getQuantity() + quantity < 0) {
 
@@ -955,7 +871,7 @@ public class Imagine {
                 }
             }
 
-            storageController.updateQuantity(newIngredient, quantity);
+            storageController.updateQuantity(ingredientName, quantity);
             textArea.append("Quantity of the ingredient " + ingredientName + " was updated");
         }
     }
@@ -969,7 +885,7 @@ public class Imagine {
 
             textArea.setText("");
 
-            for (ua.goit.domains.Storage storage : storageController.getAllEndingIngredients()) {
+            for (Storage storage : storageController.getEndingIngredients()) {
                 textArea.append(storage.toString());
                 textArea.append("\n");
             }
@@ -984,19 +900,20 @@ public class Imagine {
             LOGGER.info("RadioButton \"Add dish to order\" is selected");
 
             textArea.setText("");
-
             int orderNum;
+
             while (true) {
                 try {
-                    orderNum = Integer.parseInt(JOptionPane.showInputDialog("Please, enter the number of the order in which you want to add some dish"));
+                    orderNum = Integer.parseInt(JOptionPane.showInputDialog("Please, enter the number of the order\n" +
+                            "in which you want to add some dish"));
                     break;
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(frame, "Please, enter number of exist open order");
                 }
             }
-            ua.goit.domains.Order newOrder = orderController.getOrderById(orderNum);
-            String dishNameToOrder = JOptionPane.showInputDialog("Please, enter the name of the dish you want to add to the order");
-            orderController.addDishToOrder(dishNameToOrder, newOrder.getNumber());
+
+            String dishNameToOrder = JOptionPane.showInputDialog("Please, enter the name of the dish\nyou want to add to the order");
+            orderController.addDishToOrder(orderNum, dishNameToOrder);
 
             textArea.append("Dish " + dishNameToOrder + " has been added to order " + orderNum);
         }
@@ -1011,7 +928,7 @@ public class Imagine {
 
             textArea.setText("");
 
-            String dishNameFromOrder = JOptionPane.showInputDialog("Please, enter the name of the dish you want to delete from the order");
+            String dishNameFromOrder = JOptionPane.showInputDialog("Please, enter the name of the dish\nyou want to delete from the order");
 
             int orderNum;
             while (true) {
@@ -1022,8 +939,8 @@ public class Imagine {
                     JOptionPane.showMessageDialog(frame, "Please, enter number of exist open order");
                 }
             }
-            orderController.deleteDishFromOrder(dishNameFromOrder, orderNum);
 
+            orderController.deleteDishFromOrder(orderNum, dishNameFromOrder);
             textArea.append("Dish " + dishNameFromOrder + " has been deleted from the order " + orderNum);
         }
     }
@@ -1040,7 +957,7 @@ public class Imagine {
             int orderNum;
             while (true) {
                 try {
-                    orderNum = Integer.parseInt(JOptionPane.showInputDialog("Please, enter the number of the order you want to close"));
+                    orderNum = Integer.parseInt(JOptionPane.showInputDialog("Please, enter the number of the order\nyou want to close"));
                     break;
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(frame, "Please, enter number of exist open order");
@@ -1060,7 +977,7 @@ public class Imagine {
 
             textArea.setText("");
 
-            for (ua.goit.domains.Order order : orderController.getAllOpenedOrders()) {
+            for (Orders order : orderController.getAllOpened()) {
                 textArea.append(order.toString());
                 textArea.append("\n");
             }
@@ -1076,7 +993,7 @@ public class Imagine {
 
             textArea.setText("");
 
-            for (ua.goit.domains.Order order : orderController.getAllClosedOrders()) {
+            for (Orders order : orderController.getAllClosed()) {
                 textArea.append(order.toString());
                 textArea.append("\n");
             }

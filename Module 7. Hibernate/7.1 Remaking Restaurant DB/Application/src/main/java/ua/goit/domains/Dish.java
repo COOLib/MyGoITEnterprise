@@ -22,7 +22,7 @@ public class Dish {
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
             name = "ingredient_dish",
             joinColumns = @JoinColumn(name = "dish_id"),
@@ -121,13 +121,13 @@ public class Dish {
 
     @Override
     public String toString() {
-        return "Dish{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", category=" + category +
-                ", ingredient=" + ingredient +
-                ", price=" + price +
-                ", weight=" + weight +
-                '}';
+        return "Dish{" + "\n" +
+                "id=" + id + "\n," +
+                "name='" + name + '\'' + ",\n" +
+                "category=" + category + ",\n" +
+                "ingredient=" + ingredient + ",\n" +
+                "price=" + price + ",\n" +
+                "weight=" + weight +
+                '}' + "\n";
     }
 }

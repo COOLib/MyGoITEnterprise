@@ -20,7 +20,7 @@ public class Orders {
     @JoinColumn(name = "employee")
     private Employee waiter;
 
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
             name = "dish_orders",
             joinColumns = @JoinColumn(name = "order_number"),
@@ -131,10 +131,10 @@ public class Orders {
     @Override
     public String toString() {
         return "Orders{" +
-                "number=" + number +
-                ", waiter=" + waiter +
-                ", dishes=" + dishes +
-                ", tableNumber=" + tableNumber +
+                "number=" + number + ",\n" +
+                "waiter=" + waiter + ",\n" +
+                "dishes=" + "\n" + dishes + ",\n" +
+                "tableNumber=" + tableNumber +
                 ", date=" + date +
                 ", isClosed='" + isClosed + '\'' +
                 '}';

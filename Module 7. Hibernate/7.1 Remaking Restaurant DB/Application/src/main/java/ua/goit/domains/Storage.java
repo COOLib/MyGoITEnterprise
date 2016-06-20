@@ -1,23 +1,29 @@
 package ua.goit.domains;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "storage")
 public class Storage {
 
-    @Column(name = "ingredient_id")
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
+    @Column(name = "id")
     private int id;
+
+    @Column(name = "ingredient_id")
+    private int ingredientId;
 
     @Column(name = "quantity")
     private int quantity;
 
     public Storage() {}
 
-    public Storage(int id, int quantity) {
-        this.id = id;
+    public Storage(int ingredientId, int quantity) {
+        this.ingredientId = ingredientId;
         this.quantity = quantity;
     }
 
@@ -27,6 +33,14 @@ public class Storage {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getIngredientId() {
+        return ingredientId;
+    }
+
+    public void setIngredientId(int ingredientId) {
+        this.ingredientId = ingredientId;
     }
 
     public int getQuantity() {
@@ -44,14 +58,14 @@ public class Storage {
 
         Storage storage = (Storage) o;
 
-        if (id != storage.id) return false;
+        if (ingredientId != storage.ingredientId) return false;
         return quantity == storage.quantity;
 
     }
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = ingredientId;
         result = 31 * result + quantity;
         return result;
     }
@@ -59,8 +73,9 @@ public class Storage {
     @Override
     public String toString() {
         return "Storage{" +
-                "id=" + id +
-                ", quantity=" + quantity +
+                "id=" + id + ",\n" +
+                "ingredientId=" + ingredientId + ",\n" +
+                "quantity=" + quantity +
                 '}';
     }
 }
