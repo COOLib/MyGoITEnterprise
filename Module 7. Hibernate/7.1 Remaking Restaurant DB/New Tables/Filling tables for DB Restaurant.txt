@@ -20,21 +20,22 @@ insert into ingredient(name) values ('potato'),
 			('mutton');
 
 insert into employee values 	
-			(1, 'Nikolaj', 'Smirnov', '1987-5-15', '755-55-35', 'oficiant', 3000),
-			(2, 'Aleksej', 'Petrov', '1990-8-22', '755-56-48', 'oficiant', 3000),
+			(1, 'Nikolaj', 'Smirnov', '1987-5-15', '755-55-35', 'waiter', 3000),
+			(2, 'Aleksej', 'Petrov', '1990-8-22', '755-56-48', 'waiter', 3000),
 			(3, 'Vladimir', 'Danilets', '1984-4-16', '755-89-12', 'cook', 5500),
 			(4, 'George', 'Simon', '1978-12-12', '755-64-32', 'cook', 6000);
 		
 
 insert into employee(name, second_name, birth_date, position, salary) values
-			('Vlad', 'Kovel', '1990-9-26', 'oficiant', 3000);
+			('Vlad', 'Kovel', '1990-9-26', 'waiter', 3000);
 
 insert into employee(name, second_name, birth_date, position) values 
 			('Aleksandr', 'Panin', '1985-2-4', 'cook');
 
-insert into employee values (7, 'Jurij', 'Ivanov', '1992-5-17', '755-97-64', 'oficiant', 3000);
+insert into employee values (7, 'Jurij', 'Ivanov', '1992-5-17', '755-97-64', 'waiter', 3000);
 
-insert into storage values 	(1, 40),
+insert into storage(ingredient_id, quantity) values 	
+			(1, 40),
 			(2, 70),
 			(3, 42),
 			(4, 78),

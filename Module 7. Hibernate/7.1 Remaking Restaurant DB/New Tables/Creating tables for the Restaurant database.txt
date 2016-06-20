@@ -18,8 +18,10 @@ create table ingredient(
 	PRIMARY KEY(id));
 
 create table storage(
+	id int(5) AUTO_INCREMENT,
 	ingredient_id int(5) NOT NULL, 
 	quantity int(5),
+	PRIMARY KEY(id),
 	FOREIGN KEY (ingredient_id) REFERENCES ingredient(id));
 
 create table dish(
