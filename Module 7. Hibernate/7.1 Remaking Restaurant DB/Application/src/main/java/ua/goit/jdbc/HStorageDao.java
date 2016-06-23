@@ -27,7 +27,7 @@ public class HStorageDao implements StorageDao {
 
         Storage storage = new Storage();
 
-        storage.setId(ingredient.getId());
+        storage.setIngredientId(ingredient.getId());
         storage.setQuantity(quantity);
         sessionFactory.getCurrentSession().save(storage);
     }
@@ -39,7 +39,7 @@ public class HStorageDao implements StorageDao {
         LOGGER.info("Connecting to database. Running method is removeIngredientFromStorage");
 
         Ingredient ingredient = ingredientDao.findIngredientByName(name);
-        Storage storage = findStorageById(ingredient.getId());
+        Storage storage = findStorageByIngredientId(ingredient.getId());
 
         sessionFactory.getCurrentSession().delete(storage);
     }
@@ -83,12 +83,12 @@ public class HStorageDao implements StorageDao {
     }
 
     @Transactional
-    private Storage findStorageById(int id) {
+    private Storage findStorageByIngredientId(int id) {
 
         LOGGER.info("Connecting to database. Running method is findStorageById");
 
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select e from Storage e where e.id=:id");
+        Query query = session.createQuery("select e from Storage e where e.ingredientId=:id");
         query.setParameter("id", id);
         Storage storage = (Storage) query.uniqueResult();
 

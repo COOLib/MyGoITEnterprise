@@ -17,15 +17,10 @@ public class HIngredientController {
     @Transactional
     public void addIngredient(String name) {
 
-        Ingredient ingredient = ingredientDao.findIngredientByName(name);
+        Ingredient ingredient = new Ingredient();
 
-        if (ingredient == null) {
-
-            Ingredient ingredient1 = new Ingredient();
-            ingredient.setName(name);
-
-            ingredientDao.addIngredient(ingredient1);
-        }
+        ingredient.setName(name);
+        ingredientDao.addIngredient(ingredient);
     }
 
     public void setIngredientDao(IngredientDao ingredientDao) {
