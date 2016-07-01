@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName">
+
+    <bean id="main" class="ua.goit.Main"/>
+
+    <bean id="imagine" class="ua.goit.Imagine"/>
+
+    <bean id="employeeController" class="ua.goit.controllers.HEmployeeController"/>
+    <bean id="cookedDishController" class="ua.goit.controllers.HCookedDishController"/>
+    <bean id="dishController" class="ua.goit.controllers.HDishController"/>
+    <bean id="ingredientController" class="ua.goit.controllers.HIngredientController"/>
+    <bean id="menuController" class="ua.goit.controllers.HMenuController"/>
+    <bean id="orderController" class="ua.goit.controllers.HOrderController"/>
+    <bean id="storageController" class="ua.goit.controllers.HStorageController"/>
+
+    <bean id="employeeDao" class="ua.goit.jdbc.HEmployeeDao"/>
+    <bean id="cookedDishDao" class="ua.goit.jdbc.HCookedDishDao"/>
+    <bean id="dishDao" class="ua.goit.jdbc.HDishDao"/>
+    <bean id="ingredientDao" class="ua.goit.jdbc.HIngredientDao"/>
+    <bean id="menuDao" class="ua.goit.jdbc.HMenuDao"/>
+    <bean id="orderDao" class="ua.goit.jdbc.HOrderDao"/>
+    <bean id="storageDao" class="ua.goit.jdbc.HStorageDao"/>
+
+</beans>
