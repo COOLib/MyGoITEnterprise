@@ -1,0 +1,99 @@
+create database restaurant2;
+
+use restaurant2;
+
+create table employee(
+	id int(5) AUTO_INCREMENT, 
+	name varchar(20) NOT NULL, 
+	second_name varchar(20) NOT NULL, 
+	birth_date date NOT NULL, 
+	phone varchar(20), 
+	salary int(10), 
+	PRIMARY KEY (id));
+
+create table waiter(
+	employee_id int(5) NOT NULL, 
+	position varchar(20), 
+	FOREIGN KEY (employee_id) REFERENCES employee(id));
+
+create table cook(
+	employee_id int(5) NOT NULL, 
+	position varchar(20), 
+	FOREIGN KEY (employee_id) REFERENCES employee(id));
+
+create table ingredient(
+	id int(5) AUTO_INCREMENT, 
+	name varchar(25) NOT NULL UNIQUE, 
+	PRIMARY KEY(id));
+
+create table storage(
+	id int(5) AUTO_INCREMENT,
+	ingredient_id int(5) NOT NULL, 
+	quantity int(5),
+	PRIMARY KEY(id),
+	FOREIGN KEY (ingredient_id) REFERENCES ingredient(id));
+
+create table dish(
+	id int(10) AUTO_INCREMENT,
+	name varchar(25) NOT NULL, 
+	category varchar(25) NOT NULL, 
+	price int(5) NOT NULL, 
+	weight int(5) NOT NULL,
+	PRIMARY KEY (id));
+
+create table ingredient_dish(
+	ingredient_id int(5) NOT NULL, 
+	dish_id int(10) NOT NULL,
+	FOREIGN KEY (ingredient_id) REFERENCES ingredient(id),
+	FOREIGN KEY (dish_id) REFERENCES dish(id));
+
+create table menu(
+	id int(10) AUTO_INCREMENT,
+	name varchar(25) NOT NULL, 
+	PRIMARY KEY (id));
+
+create table menu_dishes(
+	menu_id int(10) NOT NULL,
+	dish_id int(10) NOT NULL,
+	FOREIGN KEY (menu_id) REFERENCES menu(id),
+	FOREIGN KEY (dish_id) REFERENCES dish(id));
+
+create table orders(
+	order_number int(10) AUTO_INCREMENT,
+	employee int(5) NOT NULL,
+	table_number int(5) NOT NULL,
+	date date,
+	is_closed varchar(10),
+	PRIMARY KEY (order_number),
+	FOREIGN KEY (employee) REFERENCES employee (id));
+
+create table dish_orders(
+	order_number int(10) NOT NULL,
+	dish_id int (10) NOT NULL,
+	FOREIGN KEY (order_number) REFERENCES orders(order_number),
+	FOREIGN KEY (dish_id) REFERENCES dish(id));
+
+create table cooked_dish(
+	dish_number int(10) AUTO_INCREMENT, 
+	dish_id int(10) NOT NULL,	
+	employee_id int(5) NOT NULL, 
+	order_number int(10), 
+	data date, 
+	PRIMARY KEY (dish_number), 
+	FOREIGN KEY (dish_id) REFERENCES dish(id), 
+	FOREIGN KEY (employee_id) REFERENCES employee(id), 
+	FOREIGN KEY (order_number) REFERENCES orders(order_number));
+
+create table waiter_orders(
+	waiter_id int(5) NOT NULL,
+	order_number int(5) NOT NULL,
+	FOREIGN KEY (waiter_id) REFERENCES employee(id),
+	FOREIGN KEY (order_number) REFERENCES orders(order_number));
+
+create table cook_cooked_dishes(
+	cook_id int(5) NOT NULL,
+	cooked_dish_number int(5) NOT NULL,
+	FOREIGN KEY(cook_id) REFERENCES employee(id),
+	FOREIGN KEY(cooked_dish_number) REFERENCES cooked_dish(dish_number));
+
+show tables;
