@@ -24,13 +24,14 @@ public class Orders {
     @JoinColumn(name = "employee")
     private Waiter waiter;
 
-    @ManyToMany(fetch=FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name = "dish_orders",
             joinColumns = @JoinColumn(name = "order_number"),
             inverseJoinColumns = @JoinColumn(name = "dish_id")
     )
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Dish> dishes;
 
     @Column(name = "table_number")

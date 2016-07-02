@@ -1,8 +1,9 @@
 package ua.goit.jdbc;
 
-import org.hibernate.Query;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -88,7 +89,14 @@ public class HOrderDao implements OrderDao {
     public List<Orders> getAllOpenedOrders() {
 
         LOGGER.info("Connecting to database. Running method is getAllOpenedOrders");
-        return sessionFactory.getCurrentSession().createQuery("select e from Orders e where isClosed = \'opened\'").list();
+
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+
+        List<Orders> allOpened = session.createCriteria(Orders.class)
+                .add(Restrictions.like("isClosed", "opened"))
+                .list();
+        return allOpened;
     }
 
     @Override
@@ -96,7 +104,15 @@ public class HOrderDao implements OrderDao {
     public List<Orders> getAllClosedOrders() {
 
         LOGGER.info("Connecting to database. Running method is getAllClosedOrders");
-        return sessionFactory.getCurrentSession().createQuery("select e from Orders e where isClosed = \'closed\'").list();
+
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+
+        List<Orders> allClosed = session.createCriteria(Orders.class)
+                .add(Restrictions.like("isClosed", "closed"))
+                .list();
+        return allClosed;
+
     }
 
     @Override
@@ -106,9 +122,12 @@ public class HOrderDao implements OrderDao {
         LOGGER.info("Connecting to database. Running method is findOrderById");
 
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select e from Orders e where e.id=:id");
-        query.setParameter("id", id);
-        Orders order = (Orders) query.uniqueResult();
+        session.beginTransaction();
+
+        Criteria criteria = session.createCriteria(Orders.class)
+                .add(Restrictions.eq("number", id));
+
+        Orders order = (Orders) criteria.uniqueResult();
 
         if (id == null) {
 

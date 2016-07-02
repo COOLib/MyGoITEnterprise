@@ -1,8 +1,9 @@
 package ua.goit.jdbc;
 
-import org.hibernate.Query;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,9 +41,12 @@ public class HDishDao implements DishDao {
         LOGGER.info("Connecting to database. Running method is findDishByName");
 
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select e from Dish e where e.name=:name");
-        query.setParameter("name", name);
-        Dish dish = (Dish) query.uniqueResult();
+        session.beginTransaction();
+
+        Criteria criteria = session.createCriteria(Dish.class)
+                .add(Restrictions.like("name", name));
+
+        Dish dish = (Dish) criteria.uniqueResult();
 
         if (dish == null) {
             LOGGER.error("Cannot find dish with name " + name);
@@ -56,7 +60,11 @@ public class HDishDao implements DishDao {
     public List<Dish> getAllDishes() {
 
         LOGGER.info("Connecting to database. Running method is getAllDishes");
-        return sessionFactory.getCurrentSession().createQuery("select e from Dish e").list();
+
+        Session session = sessionFactory.getCurrentSession();
+
+        List<Dish> dishes = session.createCriteria(Dish.class).list();
+        return dishes;
     }
 
     public void setSessionFactory(SessionFactory sessionFactory) {

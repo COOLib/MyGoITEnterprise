@@ -1,8 +1,9 @@
 package ua.goit.jdbc;
 
-import org.hibernate.Query;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,9 +44,12 @@ public class HMenuDao implements MenuDao {
         LOGGER.info("Connecting to database. Running method is findMenuByName");
 
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select e from Menu e where e.name=:name");
-        query.setParameter("name", name);
-        Menu menu = (Menu) query.uniqueResult();
+        session.beginTransaction();
+
+        Criteria criteria = session.createCriteria(Menu.class)
+                .add(Restrictions.like("name", name));
+
+        Menu menu = (Menu) criteria.uniqueResult();
 
         if (menu == null) {
             LOGGER.error("Cannot find menu with name " + name);
@@ -59,7 +63,11 @@ public class HMenuDao implements MenuDao {
     public List<Menu> getAllMenus() {
 
         LOGGER.info("Connecting to database. Running method is getAllMenus");
-        return sessionFactory.getCurrentSession().createQuery("select e from Menu e").list();
+
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        List<Menu> menus= session.createCriteria(Menu.class).list();
+        return menus;
     }
 
     @Override

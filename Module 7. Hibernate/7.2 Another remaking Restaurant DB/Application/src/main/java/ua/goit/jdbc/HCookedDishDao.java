@@ -1,5 +1,6 @@
 package ua.goit.jdbc;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,12 @@ public class HCookedDishDao implements CookedDishDao {
     public List<CookedDish> getAllCookedDishes() {
 
         LOGGER.info("Connecting to database. Running method is getAllCookedDishes");
-        return sessionFactory.getCurrentSession().createQuery("select e from CookedDish e").list();
+
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        List<CookedDish> cookedDishes = session.createCriteria(CookedDish.class).list();
+
+        return cookedDishes;
     }
 
     public void setSessionFactory(SessionFactory sessionFactory) {

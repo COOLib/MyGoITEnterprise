@@ -14,9 +14,9 @@ public interface StorageDao {
 
     void removeIngredientFromStorage(String name);
 
-    List<Storage> getAllIngredients();
+    List getAllIngredients();
 
-    List<Storage> getAllEndingIngredients();
+    List getAllEndingIngredients();
 
     Storage findIngredientByName(String name);
 

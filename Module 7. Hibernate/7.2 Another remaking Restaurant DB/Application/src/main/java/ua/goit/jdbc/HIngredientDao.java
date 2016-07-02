@@ -1,8 +1,9 @@
 package ua.goit.jdbc;
 
-import org.hibernate.Query;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,9 +22,12 @@ public class HIngredientDao implements IngredientDao {
         LOGGER.info("Connecting to database. Running method is findIngredientByName");
 
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select e from Ingredient e where e.name=:name");
-        query.setParameter("name", name);
-        Ingredient ingredient = (Ingredient) query.uniqueResult();
+        session.beginTransaction();
+
+        Criteria criteria = session.createCriteria(Ingredient.class)
+                .add(Restrictions.like("name", name));
+
+        Ingredient ingredient = (Ingredient) criteria.uniqueResult();
 
         if (ingredient == null) {
             LOGGER.error("Cannot find ingredient with name " + name);

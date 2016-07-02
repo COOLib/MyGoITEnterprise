@@ -22,12 +22,13 @@ public class Menu {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(fetch=FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name = "menu_dishes",
             joinColumns = @JoinColumn(name = "menu_id"),
             inverseJoinColumns = @JoinColumn(name = "dish_id")
     )
+    @LazyCollection(LazyCollectionOption.FALSE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<Dish> dishes;
 

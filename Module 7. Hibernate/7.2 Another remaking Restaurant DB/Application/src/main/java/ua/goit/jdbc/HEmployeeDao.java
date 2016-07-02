@@ -1,9 +1,10 @@
 package ua.goit.jdbc;
 
 
-import org.hibernate.Query;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,9 +63,12 @@ public class HEmployeeDao implements EmployeeDao {
         LOGGER.info("Connecting to database. Running method is findEmployeeByName");
 
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select e from Employee e where e.name=:name");
-        query.setParameter("name", name);
-        Employee employee = (Employee) query.uniqueResult();
+        session.beginTransaction();
+
+        Criteria criteria = session.createCriteria(Employee.class)
+                .add(Restrictions.like("name", name));
+
+        Employee employee = (Employee) criteria.uniqueResult();
 
         if (employee == null) {
             LOGGER.error("Cannot find employee with name" + name);
@@ -79,7 +83,12 @@ public class HEmployeeDao implements EmployeeDao {
     public List<Employee> getAllEmployees() {
 
         LOGGER.info("Connecting to database. Running method is getAllEmployees");
-        return sessionFactory.getCurrentSession().createQuery("select e from Employee e").list();
+
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        List<Employee> employees = session.createCriteria(Employee.class).list();
+
+        return employees;
     }
 
     public void setSessionFactory(SessionFactory sessionFactory) {
