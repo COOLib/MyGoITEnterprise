@@ -19,8 +19,8 @@ public class Waiter extends Employee {
     @Column(name = "position")
     private Position position;
 
-    @OneToMany(fetch=FetchType.EAGER)
-    @JoinColumn(name = "employee")
+    @OneToMany(fetch=FetchType.EAGER, mappedBy = "waiter")
+
     @Fetch(FetchMode.SELECT)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<Orders> orders;

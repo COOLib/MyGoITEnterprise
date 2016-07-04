@@ -139,6 +139,7 @@ public class Orders {
     public String toString() {
         return "Order{" +
                 "number=" + number + ",\n" +
+                "waiter=" + waiter.getName() + ",\n" +
                 "dishes=" + '\n' + dishes + ",\n" +
                 "tableNumber=" + tableNumber +
                 ", date=" + date +
