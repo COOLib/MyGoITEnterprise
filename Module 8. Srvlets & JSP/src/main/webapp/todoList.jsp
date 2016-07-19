@@ -1,4 +1,7 @@
 <%@page import="ua.goit.servlets.Task" %>
+<%@page import="ua.goit.servlets.ToDoServlet" %>
+<%@ page import="java.util.Set" %>
+<%@ page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -19,39 +22,33 @@
     </div>
     <h1>My ToDo List</h1>
 
-    <form action="todoList.jsp" method="POST">
-
+    <form action="todoForm" method="post">
         <table class="table1">
-            <table class="table1">
-                <tr>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Complete</th>
-                </tr>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Complete</th>
+            </tr>
+
+            <c:forEach items="${myTasks}" var="task">
 
                 <tr>
-                    <% Task task = (Task) request.getAttribute("task"); %>
-                    <c:if test="${task != null}">
-                        <td>${requestScope['task'].taskName}</td>
-                        <td>${requestScope['task'].taskCategory}</td>
-                        <td><% out.print(task.getName()); %></td>
-                        <td><% out.print(task.getCategory()); %></td>
-                    </c:if>
-                    <c:if test="${task == null}">
-                        <td></td>
-                        <td></td>
-                    </c:if>
-
-                    <td><input type="checkbox" name="extras[]" value="done"/></td>
+                    <td>${task.name}</td>
+                    <td>${task.category}</td>
+                    <td><input type="checkbox" name="doneButton" value="${task.name}"/></td>
                 </tr>
-            </table>
+            </c:forEach>
+
         </table>
+
         <input id="update" type="submit" value="Update tasks"/>
+
+    </form>
+    <form action="submitForm" method="post">
 
         <h2>
             Fill the form and click the button "Add task"
         </h2>
-
 
         <div id="inputDiv">
             Task name:<input class="textInput" type="text" name="taskName" placeholder="Enter name"/>
@@ -61,7 +58,7 @@
             <input class="Add" type="submit" value="Add task">
         </div>
 
-
+        <h2>Session counter: "${sessionScope.get("myCounter")}"</h2>
     </form>
 
     <div id="footer">

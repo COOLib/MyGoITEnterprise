@@ -5,14 +5,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ToDoServlet extends HttpServlet {
 
-    private List<Task> myTasks = new ArrayList<>();
+    private static List<Task> myTasks;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,13 +30,36 @@ public class ToDoServlet extends HttpServlet {
 
         response.setContentType("text/html");
 
-        PrintWriter out = response.getWriter();
         String name = request.getParameter("taskName");
         String category = request.getParameter("taskCategory");
 
         Task task = new Task(name, category);
 
-        request.setAttribute("task", task);
+        if (request.getSession().getAttribute("myTasks") != null) {
+
+            myTasks = (List<Task>) request.getSession().getAttribute("myTasks");
+        } else {
+
+            myTasks = new ArrayList<>();
+        }
+
+        if (name != "" && category != "" && !myTasks.contains(task)) {
+            myTasks.add(task);
+        }
+
+        request.setAttribute("myTasks", myTasks);
+
+        HttpSession session = request.getSession(true);
+        session.setAttribute("myTasks", myTasks);
+
+        Integer counter = (Integer) session.getAttribute("myCounter");
+
+        if (counter == null) {
+            counter = 1;
+            session.setAttribute("myCounter", counter);
+        } else {
+            session.setAttribute("myCounter", ++counter);
+        }
 
         RequestDispatcher reqDispatcher = request.getRequestDispatcher("todoList.jsp");
         reqDispatcher.forward(request, response);

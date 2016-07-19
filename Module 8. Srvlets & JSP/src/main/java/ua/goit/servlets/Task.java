@@ -1,19 +1,12 @@
 package ua.goit.servlets;
 
 
-public class Task {
+import java.io.Serializable;
 
-    private int id;
+public class Task implements Serializable{
+
     private String name;
     private String category;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -55,14 +48,5 @@ public class Task {
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (category != null ? category.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", category='" + category + '\'' +
-                '}';
     }
 }
